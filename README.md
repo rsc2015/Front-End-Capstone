@@ -1,1 +1,1 @@
-# Front-End-Capstone
+# SymptomTracker-Front-End-Capstone
