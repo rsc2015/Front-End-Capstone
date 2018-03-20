@@ -3,8 +3,9 @@
 // It is only concerned with getting and setting data in the db
 
 let $ = require('jquery'),
-    firebase = require("./fb-config");
-
+firebase = require("./fb-config");
+let printSymptom = require("./dom-builder");
+    
 
     // this functionn is to call the symptoms list triggered by the "select symptoms" button.
 
@@ -19,7 +20,29 @@ let $ = require('jquery'),
       });
    
       
-    //   let database = firebase.database();
+    
+
+     function makeFBCall(url) {
+         console.log(makeFBCall);
+        return $.ajax({
+        url: url,
+        dataType: "json"
+        });
+        }
+        
+        makeFBCall(`https://symtrak-34d63.firebaseio.com/symptoms.json?orderBy="uid"`)
+        .then((symptomsList) => {
+        console.log("symptomsList", symptomsList);
+        // printSymptom is the variable for the domBuilder
+        printSymptom.printListToDom();
+        },
+        (reject) => {
+        console.log("SOMETHING WENT REALLY WRONG");
+        });
+
+
+
+        //   let database = firebase.database();
 
     //   let symptomRef = database.ref('Name');
     //   symptomRef.on('value', getSymptoms, errData);
@@ -48,23 +71,8 @@ let $ = require('jquery'),
     //  }
      //https://symtrak-34d63.firebaseio.com/symptoms
      //https://music-history-f8b12.firebaseio.com/songs/0
-
-     function makeFBCall(url) {
-         console.log(makeFBCall);
-        return $.ajax({
-        url: url,
-        dataType: "json"
-        });
-        }
-        
-        makeFBCall(`https://symtrak-34d63.firebaseio.com/symptoms.json?orderBy="uid"`)
-        .then((resolve) => {
-        console.log("makeCallResolve", resolve);
-        // functionIWantjQueryToExecute
-        },
-        (reject) => {
-        console.log("SOMETHING WENT REALLY WRONG");
-        });
     //  module.exports = {
     //     getSymptoms,
     //  };
+
+
