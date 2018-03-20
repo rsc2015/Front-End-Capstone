@@ -7,6 +7,18 @@ let db = require("./db-interaction");
 //     templates = require("./dom-builder"),
 let user = require("./user");
 
+// $(document).ready(function(){
+//     $(".dropdown-toggle").dropdown();
+//   });
+
+//  
+
+$(document).ready(function(){
+    $("#selectSymptom").click(function(){
+        $("#exampleModalLong").modal();
+    });
+});
+
 // $(function () {
 //     $('[data-toggle="popover"]').popover()({
 //     placement : 'top',
