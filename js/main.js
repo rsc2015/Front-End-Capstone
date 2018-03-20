@@ -2,9 +2,10 @@
 
 console.log("main.js");
 let $ = require('jquery');
-// db = require("./db-interaction"),
+window.Popper = require('popper.js');
+let db = require("./db-interaction");
 //     templates = require("./dom-builder"),
-//     user = require("./user");
+let user = require("./user");
 
 // $(function () {
 //     $('[data-toggle="popover"]').popover()({

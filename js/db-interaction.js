@@ -17,3 +17,54 @@ let $ = require('jquery'),
         modal.find('.modal-title').text('New message to ' + recipient);
         modal.find('.modal-body input').val(recipient);
       });
+   
+      
+    //   let database = firebase.database();
+
+    //   let symptomRef = database.ref('Name');
+    //   symptomRef.on('value', getSymptoms, errData);
+
+    //   function getSymptoms(data){
+    //       //console.log(data.val());
+    //       var name = data.val();
+    //       var keys = Object.keys(name);
+    //       console.log(keys);
+    //   }
+
+    //   function errData(err){
+    //       console.log('Error');
+    //       console.log(err);
+    //   }
+
+    // function getSymptoms() {
+    //     console.log("url", firebase.getFBsettings().databaseURL);
+    //      return $.ajax({
+    //          url: `${firebase.getFBsettings().databaseURL}/symptoms.json?orderBy="uid"`
+    //          // url: `https://symtrak-34d63.firebaseio.com/symptoms.json?orderBy="uid"&equalTo="${user}"`
+    //      }).done((symptomData) => {
+    //          console.log("symptomData in promise", symptomData);
+    //          return symptomData;
+    //     });
+    //  }
+     //https://symtrak-34d63.firebaseio.com/symptoms
+     //https://music-history-f8b12.firebaseio.com/songs/0
+
+     function makeFBCall(url) {
+         console.log(makeFBCall);
+        return $.ajax({
+        url: url,
+        dataType: "json"
+        });
+        }
+        
+        makeFBCall(`https://symtrak-34d63.firebaseio.com/symptoms.json?orderBy="uid"`)
+        .then((resolve) => {
+        console.log("makeCallResolve", resolve);
+        // functionIWantjQueryToExecute
+        },
+        (reject) => {
+        console.log("SOMETHING WENT REALLY WRONG");
+        });
+    //  module.exports = {
+    //     getSymptoms,
+    //  };
