@@ -18,12 +18,12 @@ let $ = require('jquery');
 //     });
 // }
 
-function printListToDom(symptomsList){
-    console.log("symptomsList", symptomsList);
-    let symptomName = symptomsList.name;
-    console.log(symptomName);
+// function printListToDom(symptomsList){
+//     console.log("symptomsList", symptomsList);
+//     let symptomName = symptomsList.name;
+//     console.log(symptomName);
 
 
-}
+// }
 
 module.exports = {printListToDom};
