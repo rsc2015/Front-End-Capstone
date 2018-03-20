@@ -7,21 +7,6 @@ firebase = require("./fb-config");
 let printSymptom = require("./dom-builder");
     
 
-    // this functionn is to call the symptoms list triggered by the "select symptoms" button.
-
-    $('#exampleModal').on('show.bs.modal', function (event) {
-        var button = $(event.relatedTarget); // Button that triggered the modal
-        var recipient = button.data('whatever') ;// Extract info from data-* attributes
-        // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
-        // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
-        var modal = $(this);
-        modal.find('.modal-title').text('New message to ' + recipient);
-        modal.find('.modal-body input').val(recipient);
-      });
-   
-      
-    
-
      function makeFBCall(url) {
         return $.ajax({
         url: url,
@@ -52,7 +37,7 @@ let printSymptom = require("./dom-builder");
 
         //function to select the symptoms from the symptomlist
         let listItems = document.getElementsByClassName("symptomsDisplay");
-        console.log("listitems", listitems);
+        console.log("listItems", listItems);
 
         
         for (var i = 0; i < listItems.length; i++) {
@@ -64,16 +49,9 @@ let printSymptom = require("./dom-builder");
             elementColor.style.backgroundColor = "grey"; 
         
         } 
-    // for (var i = 0; i < listItems.length; i++) {
-    //     listItems.item(i).addEventListener("click", handleClick);
-    // }
 
-    // function handleClick(MouseEvent){
-    //     let elementColor = MouseEvent.target.listItems;
-    //     elementColor.style.backgroundColor = "grey"; 
-    // }
-    
 
+        module.exports = {handleClick, makeFBCall};
 
     // this function is to call the symptoms list triggered by the "select symptoms" button.
 
@@ -122,3 +100,4 @@ let printSymptom = require("./dom-builder");
     //  module.exports = {
     //     getSymptoms,
     //  };
+
