@@ -46,8 +46,7 @@ let printSymptom = require("./dom-builder");
 
         function handleClick(MouseEvent){
             let elementColor = MouseEvent.target.innerHTML;
-            elementColor.style.backgroundColor = "grey"; 
-        
+            listItems.style.backgroundColor = "grey";
         } 
 
 
