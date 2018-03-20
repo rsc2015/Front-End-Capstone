@@ -23,7 +23,6 @@ let printSymptom = require("./dom-builder");
     
 
      function makeFBCall(url) {
-         console.log(makeFBCall);
         return $.ajax({
         url: url,
         dataType: "json"
@@ -45,14 +44,34 @@ let printSymptom = require("./dom-builder");
         // let eventsArray = meetupList.events;
         for (var i=0; i < 10; i++){
             let symptomNames = symptomsList.symptoms;
-            console.log("symptomNames");
             console.log("Symptom Name:", symptomNames[i].name);
-            $('#symptomData').append(`<li class="symptomsDisplay">
+            $('#symptomData').append(`<li class="list-group-item symptomsDisplay" name="symName">
             ${symptomNames[i].name}</li>`);
-        // let symptomName = symptoms[i].name;
-        // console.log(symptomName);
         }
         }
+
+        //function to select the symptoms from the symptomlist
+        let listItems = document.getElementsByClassName("symptomsDisplay");
+        console.log("listitems", listitems);
+
+        
+        for (var i = 0; i < listItems.length; i++) {
+            listItems.item(i).addEventListener("click", handleClick);
+        }
+
+        function handleClick(MouseEvent){
+            let elementColor = MouseEvent.target.innerHTML;
+            elementColor.style.backgroundColor = "grey"; 
+        
+        } 
+    // for (var i = 0; i < listItems.length; i++) {
+    //     listItems.item(i).addEventListener("click", handleClick);
+    // }
+
+    // function handleClick(MouseEvent){
+    //     let elementColor = MouseEvent.target.listItems;
+    //     elementColor.style.backgroundColor = "grey"; 
+    // }
     
 
 
