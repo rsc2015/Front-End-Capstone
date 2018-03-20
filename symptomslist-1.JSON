@@ -2,87 +2,87 @@
   "symptoms":[
     {
       "id": 1,
-      "Name": "Abdominal Pain"
+      "name": "Abdominal Pain"
     },
     {
         "id": 2,
-        "Name": "Back Pain"
+        "name": "Back Pain"
       },
       {
         "id": 3,
-        "Name": "Blood In Stool"
+        "name": "Blood In Stool"
       },
       {
         "id": 4,
-        "Name": "Chest Pain"
+        "name": "Chest Pain"
       },
       {
         "id": 5,
-        "Name": "Cough"
+        "name": "Cough"
       },
       {
         "id": 6,
-        "Name": "Dark Urine"
+        "name": "Dark Urine"
       },
       {
         "id":7,
-        "Name": "Diarrhea"
+        "name": "Diarrhea"
       },
       {
         "id": 8,
-        "Name": "Dizziness"
+        "name": "Dizziness"
       },
       {
         "id": 9,
-        "Name": "Fatigue"
+        "name": "Fatigue"
       },
       {
         "id": 10,
-        "Name": "Fever"
+        "name": "Fever"
       },
       {
         "id": 11,
-        "Name": "Frequent Urination"
+        "name": "Frequent Urination"
       },
       {
         "id": 12,
-        "Name": "Gas"
+        "name": "Gas"
       },
       {
         "id": 13,
-        "Name": "Headache"
+        "name": "Headache"
       },
       {
         "id": 14,
-        "Name": "Joint Pain"
+        "name": "Joint Pain"
       },
       {
         "id": 15,
-        "Name": "Loss of Appetite"
+        "name": "Loss of Appetite"
       },
       {
         "id": 16,
-        "Name": "Low Grade Fever"
+        "name": "Low Grade Fever"
       },
       {
         "id": 17,
-        "Name": "Nausea"
+        "name": "Nausea"
       },
       {
         "id": 18,
-        "Name": "Rash"
+        "name": "Rash"
       },
       {
         "id": 19,
-        "Name": "Swollen Feet"
+        "name": "Swollen Feet"
       },
       {
         "id": 20,
-        "Name": "Vaginal Discharge"
+        "name": "Vaginal Discharge"
       },
       {
         "id": 21,
-        "Name": "Vertigo"
+        "name": "Vertigo"
       }
     ]
   }

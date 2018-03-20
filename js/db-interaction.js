@@ -34,14 +34,41 @@ let printSymptom = require("./dom-builder");
         .then((symptomsList) => {
         console.log("symptomsList", symptomsList);
         // printSymptom is the variable for the domBuilder
-        printSymptom.printListToDom();
+      printListToDom(symptomsList);
         },
         (reject) => {
         console.log("SOMETHING WENT REALLY WRONG");
         });
 
+       function printListToDom(symptomsList){
+        console.log("symptomsList", symptomsList);
+        // let eventsArray = meetupList.events;
+        for (var i=0; i < 10; i++){
+            let symptomNames = symptomsList.symptoms;
+            console.log("symptomNames");
+            console.log("Symptom Name:", symptomNames[i].name);
+            $('#symptomData').append(`<li class="symptomsDisplay">
+            ${symptomNames[i].name}</li>`);
+        // let symptomName = symptoms[i].name;
+        // console.log(symptomName);
+        }
+        }
+    
 
 
+    // this function is to call the symptoms list triggered by the "select symptoms" button.
+
+    // $('#exampleModal').on('show.bs.modal', function (event) {
+    //     var button = $(event.relatedTarget); // Button that triggered the modal
+    //     var recipient = button.data('whatever') ;// Extract info from data-* attributes
+    //     // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
+    //     // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
+    //     var modal = $(this);
+    //     modal.find('.modal-title').text('New message to ' + recipient);
+    //     modal.find('.modal-body input').val(recipient);
+    //   });
+   
+      
         //   let database = firebase.database();
 
     //   let symptomRef = database.ref('Name');
@@ -71,8 +98,8 @@ let printSymptom = require("./dom-builder");
     //  }
      //https://symtrak-34d63.firebaseio.com/symptoms
      //https://music-history-f8b12.firebaseio.com/songs/0
+
+     
     //  module.exports = {
     //     getSymptoms,
     //  };
-
-
