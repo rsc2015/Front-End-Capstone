@@ -52,6 +52,16 @@ let printSymptom = require("./dom-builder");
 
 
         module.exports = {handleClick, makeFBCall};
+    // for (var i = 0; i < listItems.length; i++) {
+    //     listItems.item(i).addEventListener("click", handleClick);
+    // }
+
+    // function handleClick(MouseEvent){
+    //     let elementColor = MouseEvent.target.listItems;
+    //     elementColor.style.backgroundColor = "grey"; 
+    // }
+    
+
 
     // this function is to call the symptoms list triggered by the "select symptoms" button.
 
