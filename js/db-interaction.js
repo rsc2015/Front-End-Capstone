@@ -7,54 +7,66 @@ firebase = require("./fb-config");
 let printSymptom = require("./dom-builder");
     
 
-    // this functionn is to call the symptoms list triggered by the "select symptoms" button.
-
-    $('#exampleModal').on('show.bs.modal', function (event) {
-        var button = $(event.relatedTarget); // Button that triggered the modal
-        var recipient = button.data('whatever') ;// Extract info from data-* attributes
-        // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
-        // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
-        var modal = $(this);
-        modal.find('.modal-title').text('New message to ' + recipient);
-        modal.find('.modal-body input').val(recipient);
-      });
-   
-      
-    
-
      function makeFBCall(url) {
-         console.log(makeFBCall);
         return $.ajax({
         url: url,
         dataType: "json"
         });
         }
         
-        makeFBCall(`https://symtrak-34d63.firebaseio.com/symptoms.json?orderBy="uid"`)
+        makeFBCall(`${firebase.getFBsettings().databaseURL}/symptoms.json?orderBy="uid"`)
+        // `${firebase.getFBsettings().databaseURL}/songs.json?orderBy="uid"&equalTo="${user}"`
+        // https://symtrak-34d63.firebaseio.com/symptoms.json?orderBy="uid"
         .then((symptomsList) => {
         console.log("symptomsList", symptomsList);
         // printSymptom is the variable for the domBuilder
-      printListToDom(symptomsList);
+      printSymptom.printListToDom(symptomsList);
         },
         (reject) => {
         console.log("SOMETHING WENT REALLY WRONG");
         });
 
-       function printListToDom(symptomsList){
-        console.log("symptomsList", symptomsList);
-        // let eventsArray = meetupList.events;
-        for (var i=0; i < 10; i++){
-            let symptomNames = symptomsList.symptoms;
-            console.log("symptomNames");
-            console.log("Symptom Name:", symptomNames[i].name);
-            $('#symptomData').append(`<li class="symptomsDisplay">
-            ${symptomNames[i].name}</li>`);
-        // let symptomName = symptoms[i].name;
-        // console.log(symptomName);
-        }
-        }
-    
+    //    function printListToDom(symptomsList){
+    //     console.log("symptomsList", symptomsList);
+    //     // let eventsArray = meetupList.events;
+    //     for (var i=0; i < 10; i++){
+    //         let symptomNames = symptomsList.symptoms;
+    //         console.log("Symptom Name:", symptomNames[i].name);
+    //         $('#symptomData').append(`<li class="list-group-item symptomsDisplay" name="symName">
+    //         ${symptomNames[i].name}</li>`);
+    //     }
+    //     }
 
+        //function to select the symptoms from the symptomlist
+        // let listItems = document.getElementsByClassName("symptomsDisplay");
+        // console.log("listItems", listItems);
+
+        
+        // for (var i = 0; i < listItems.length; i++) {
+        //     listItems.item(i).addEventListener("click", handleClick);
+        // }
+
+        // function handleClick(MouseEvent){
+        //     let elementColor = MouseEvent.target.innerHTML;
+        //     listItems.style.backgroundColor = "grey";
+        // } 
+
+        // function bgChange(e) {
+        //     e.target.style.backgroundColor = "grey";
+        //     console.log(e);
+        //   } 
+
+        // for (var i = 0; i < listItems.length; i++) {
+        //     listItems.item(i).addEventListener("click", handleClick);
+        //   }
+        //   unction handleClick(e){
+        //          e.target.style.backgroundColor = bgChange();
+        //      } 
+          
+
+        
+
+        module.exports = { makeFBCall};
 
     // this function is to call the symptoms list triggered by the "select symptoms" button.
 
@@ -103,3 +115,4 @@ let printSymptom = require("./dom-builder");
     //  module.exports = {
     //     getSymptoms,
     //  };
+

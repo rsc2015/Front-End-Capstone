@@ -31,8 +31,23 @@
     border: .5px solid #5A9693;
 }
 
+#navbarTogglerDemo03 li a{
+    color: #5A9693;
+    margin-left: 25px;
+    margin-right: 25px;
+} 
+
+
+#navbarTogglerDemo03{
+    margin-left: 50px;
+}
+
 .info-main{
    justify-content: space-around;
     display: flex;
     align-items: center;
+}
+
+.is-hidden{
+    display: none;
 }

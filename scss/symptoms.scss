@@ -8,28 +8,45 @@
 // }
 
 .card1{
-margin-top: 25px;
-
+margin-top: 15px;
+}
+.symptomsHeading1{
+    margin-bottom:0px;
+    margin-top: 2px;
+}
+.symptomsSubHeading1{
+    font-size: 13px;
+    color: rgb(56, 54, 54);
 }
 .box-right{
    height: 450px;
     /* border:.5px solid #5A9693; */
     //  margin-right: 60px; 
-    background-color: #deeae9;
+    background-color: #d1f1ef;
     box-shadow: 5px 5px #e6e4e4;
     border-radius: 5px;
-    
 }
 .symptom-card-text{
-    
     margin-bottom: 15px;
 }
 
 .btn-1{
-    margin-top: 346px;
+    margin-top: 326px;
     float:right;
 }
 
-#symptomData li{
-    line-height: 13px;
+// #symptomData ul{
+//     line-height: 13px;
+    
+// }
+
+ul.symptomsDisplay{
+    list-style-type: none;
+    line-height: 1px;
 }
+
+input{
+    float: right;
+}
+
+// .symptomsDisplay
