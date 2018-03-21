@@ -2,7 +2,7 @@
 
 console.log("main.js");
 let $ = require('jquery');
-window.Popper = require('popper.js');
+
 let db = require("./db-interaction");
 let templates = require("./dom-builder");
 let user = require("./user");
