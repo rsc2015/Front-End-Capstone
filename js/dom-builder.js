@@ -10,7 +10,7 @@ function printListToDom(symptomsList){
         let symptomNames = symptomsList.symptoms;
         console.log("Symptom Name:", symptomNames[i].name);
         $('#symptomData').append(`<li class="list-group-item symptomsDisplay" name="symName">
-        ${symptomNames[i].name}</li>`);
+        ${symptomNames[i].name}<input class="single-checkbox"type="checkbox" name="test" value="1" /></li>`);
     }
     }
 
