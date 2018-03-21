@@ -8,10 +8,11 @@
 // }
 
 .card1{
-margin-top: 25px;
+margin-top: 15px;
 }
 .symptomsHeading1{
     margin-bottom:0px;
+    margin-top: 2px;
 }
 .symptomsSubHeading1{
     font-size: 13px;
@@ -41,9 +42,11 @@ margin-top: 25px;
 
 ul.symptomsDisplay{
     list-style-type: none;
-    line-height: 8px;
+    line-height: 1px;
 }
 
 input{
     float: right;
 }
+
+// .symptomsDisplay
