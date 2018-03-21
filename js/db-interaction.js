@@ -64,6 +64,12 @@ let printSymptom = require("./dom-builder");
         //      } 
           
 
+        $('.single-checkbox').on('change', function() {
+            if($('.single-checkbox:checked').length > 2) {
+                this.checked = false;
+            }
+         });
+
         module.exports = { makeFBCall};
 
     // this function is to call the symptoms list triggered by the "select symptoms" button.
