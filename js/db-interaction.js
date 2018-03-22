@@ -57,8 +57,14 @@ let printSymptom = require("./dom-builder");
                 return userID;
              });
         }
+        // window.onload= createText();
 
+        // let alert;
 
+        // function createText() {
+        //     alert("This is the first.");
+        //   }
+        
 
 
     
@@ -92,7 +98,7 @@ let printSymptom = require("./dom-builder");
 
         
 
-        module.exports = { makeFBCall, getFBDetails, addUserFB, updateUserFB};
+        module.exports = { makeFBCall, getFBDetails, addUserFB, updateUserFB, };
 
     // this function is to call the symptoms list triggered by the "select symptoms" button.
 
