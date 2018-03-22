@@ -2,7 +2,11 @@
 //install firebase into lib folder npm install firebase --save
 let firebase = require("./fb-config"),
  provider = new firebase.auth.GoogleAuthProvider(),
-	 currentUser = null;
+ db = require("./db-interaction");
+let currentUser = {
+	uid: null,
+	fbID: null
+   };
 
 
 function logInGoogle() {
@@ -14,52 +18,95 @@ function logOut(){
 }
 
 function setUser(val){
-	currentUser = val;
-}
+	currentUser.uid = val;
+ }
 
-function getUser() {
-  return currentUser;
-}
+function getUser(){
+	return currentUser.uid;
+ }
 
-firebase.auth().onAuthStateChanged(function(user){
-	console.log("onAuthStateChanged", user);
-	if (user){
-		currentUser = user.uid;
-	}else{
-		currentUser = null;
-		console.log("NO USER LOGGED IN");
-	}
+ function getUserObj(){
+	return currentUser;
+ }
+
+// call logout when page loads to avoid currentUser.uid
+// db.logOut();
+//listen for changed state
+firebase.auth().onAuthStateChanged((user) => {
+   console.log("onAuthStateChanged", user);
+   if (user){
+	   currentUser.uid = user.uid;
+	 console.log("current user Logged in?", currentUser);
+   }else {
+	 currentUser.uid = null;
+	 currentUser.fbID = null;
+	 console.log("current user NOT logged in:", currentUser);
+   }
 });
 
-module.exports = {logInGoogle, logOut, setUser, getUser};
+function setUserVars(obj){
+   console.log("user.setUserVars: obj", obj);
+   return new Promise((resolve, reject) => {
+	   currentUser.fbID = obj.fbID ? obj.fbID : currentUser.fbID;
+	   currentUser.uid = obj.uid ? obj.uid : currentUser.uid;
+	   resolve(currentUser);
+   });
+}
 
-//listen for changed state
-// firebase.auth().onAuthStateChanged((user) => {
+// function showUser(obj) {
+//   let userDetails = getUserObj();
+//   console.log("user.showUser: userDetails:", userDetails);
+//   $("#currentTemp").html(`${userDetails.weather} F in ${userDetails.zipCode}`);
+// }
+
+function checkUserFB(uid){
+   db.getFBDetails(uid)
+   .then((result) => {
+	   let data = Object.values(result);
+	   console.log("user: any data?", data.length);
+	   if (data.length === 0){
+		   console.log("need to add this user to FB" , data);
+		  db.addUserFB(makeUserObj(uid))
+		   .then((result) => {
+			  console.log("user: user added", uid, result.name);
+			  let tmpUser = {
+				 fbID: result.name,
+				 uid: uid
+			  };
+			  return tmpUser;
+		   }).then((tmpUser) => {
+				 return setUserVars(tmpUser);
+		   });
+	   }else{
+		   console.log("user: already a user", data);
+		   var key = Object.keys(result);
+		   data[0].fbID = key[0];
+		   setUserVars(data[0])
+			  .then((resolve) => {
+				// getUserWeather(resolve);
+			  });
+	   }
+	 //only show once a user is logged in
+	 // $("#zip-container").removeClass("is-hidden");
+   });
+}
+
+function makeUserObj(uid){
+    let userObj = { 
+        uid: uid }; 
+    return userObj;
+}
+
+// firebase.auth().onAuthStateChanged(function(user){
 // 	console.log("onAuthStateChanged", user);
 // 	if (user){
 // 		currentUser = user.uid;
-// 		console.log("current user Logged in?", currentUser);
-// 	}else {
+// 	}else{
 // 		currentUser = null;
-// 		console.log("current user NOT logged in:", currentUser);
+// 		console.log("NO USER LOGGED IN");
 // 	}
 // });
 
-// function logInGoogle() {
-// 	//all firebase functions return a promise!! Add a then when called
+module.exports = {logInGoogle, logOut, setUser, getUser, getUserObj, checkUserFB, makeUserObj};
 
-// 	return firebase.auth().signInWithPopup(provider);
-// }
 
-// function logOut(){
-// 	return firebase.auth().signOut();
-// }
-// function getUser(){
-// 	return currentUser;
-// }
-
-// function setUser(val){
-// 	currentUser = val;
-// }
-
-// module.exports = {logInGoogle, logOut, getUser, setUser};
