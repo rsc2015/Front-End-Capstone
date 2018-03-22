@@ -33,18 +33,60 @@ function printListToDom(symptomsList){
      }
     }
 
-    //  function handleClick(MouseEvent){
-    //      let elementColor = MouseEvent.target.innerHTML;
-    //      listItems.style.backgroundColor = "grey";
-    //  } 
+    // var input;
 
-    var input;
+    // $('.singlecheckbox').on('change', function() {
+    //     if($('.singlecheckbox:checked').length > 2) {
+    //         input.checked = false;
+    //     }
+    //  });
 
-    $('.singlecheckbox').on('change', function() {
-        if($('.singlecheckbox:checked').length > 2) {
-            input.checked = false;
-        }
-     });
+    // function songForm(song, songId) {
+    //     return new Promise(function (resolve, reject) {
+    //       let songItem = {
+    //         title: song ? song.title : "",
+    //         artist: song ? song.artist : "",
+    //         year: song ? song.year : "",
+    //         album: song ? song.album : "",
+    //         formTitle: song ? `Edit "${song.title}"` : "Add a new song",
+    //         btnText: song ? "save changes" : "save song",
+    //         btnId: song ? "save_edit_btn" : "save_new_btn"
+    //       },
+    //       form =
+    //         `<h3>${songItem.formTitle}</h3>
+    //         <input type="text" id="form--title" placeholder="title" value="${songItem.title}"></input>
+    //         <input type="text" id="form--artist" placeholder="artist" value="${songItem.artist}"></input>
+    //         <input type="text" id="form--album" placeholder="album" value="${songItem.album}"></input>
+    //         <input type="text" id="form--year" placeholder="year" value="${songItem.year}"></input>
+    //         <button id="${songId}" class=${songItem.btnId}>${songItem.btnText}</button>`;
+    //       resolve(form);
+    //     });
+    //   }
+    function historyForm(med, medId) {
+        return new Promise(function (resolve, reject) {
+          let historyItem = {
+            medication1: med ? med.name1 : "",
+            medication2: med ? med.name2 : "",
+            medication3: med ? med.name3 : "",
+            medication4: med ? med.name4 : "",
+
+            formTitle: med ? `Edit "${med.name1}"` : "Add a new item",
+            btnText: med ? "save changes" : "save history",
+            btnId: med ? "save_edit_btn" : "save_new_btn"
+          },
+          form =
+            `<h3>${historyItem.formTitle}</h3>
+            <input type="text" id="form--title" placeholder="title" value="${historyItem.name1}"></input>
+            <input type="text" id="form--artist" placeholder="artist" value="${historyItem.name2}"></input>
+            <input type="text" id="form--album" placeholder="album" value="${historyItem.name3}"></input>
+            <input type="text" id="form--album" placeholder="album" value="${historyItem.name4}"></input>
+            <input type="text" id="form--album" placeholder="album" value="${historyItem.name4}"></input>
+            
+            <button id="${medId}" class=${historyItem.btnId}>${historyItem.btnText}</button>`;
+          resolve(form);
+        });
+      }
+      
 
      //https://www.w3schools.com/howto/tryit.asp?filename=tryhow_custom_select
      // Pass the checkbox name to the function
