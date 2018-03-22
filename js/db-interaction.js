@@ -16,7 +16,7 @@ let printSymptom = require("./dom-builder");
         
         makeFBCall(`${firebase.getFBsettings().databaseURL}/symptoms.json?orderBy="uid"`)
         // `${firebase.getFBsettings().databaseURL}/songs.json?orderBy="uid"&equalTo="${user}"`
-        // https://symtrak-34d63.firebaseio.com/symptoms.json?orderBy="uid"
+        // https://symtrak-34d63.firebaseio.com/symptoms.json?orderBy="uid"&equalTo="${user}"`
         .then((symptomsList) => {
         console.log("symptomsList", symptomsList);
         // printSymptom is the variable for the domBuilder
@@ -26,18 +26,44 @@ let printSymptom = require("./dom-builder");
         console.log("SOMETHING WENT REALLY WRONG");
         });
 
-    //    function printListToDom(symptomsList){
-    //     console.log("symptomsList", symptomsList);
-    //     // let eventsArray = meetupList.events;
-    //     for (var i=0; i < 10; i++){
-    //         let symptomNames = symptomsList.symptoms;
-    //         console.log("Symptom Name:", symptomNames[i].name);
-    //         $('#symptomData').append(`<li class="list-group-item symptomsDisplay" name="symName">
-    //         ${symptomNames[i].name}</li>`);
-    //     }
-    //     }
+        function getFBDetails(user){
+            return $.ajax({
+                url: `${firebase.getFBsettings().databaseURL}//user.json?orderBy="uid"&equalTo="${user}"`
+             }).done((resolve) => {
+                return resolve;
+             }).fail((error) => {
+                return error;
+             });
+          }
 
-        //function to select the symptoms from the symptomlist
+          function addUserFB(userObj){
+            return $.ajax({
+                url: `${firebase.getFBsettings().databaseURL}/user.json`,
+                type: 'POST',
+                data: JSON.stringify(userObj),
+                dataType: 'json'
+             }).done((fbID) => {
+                return fbID;
+             });
+        }
+        
+        function updateUserFB(userObj){
+            return $.ajax({
+                url: `${firebase.getFBsettings().databaseURL}/user/${userObj.fbID}.json`,
+                type: 'PUT',
+                data: JSON.stringify(userObj),
+                dataType: 'json'
+             }).done((userID) => {
+                return userID;
+             });
+        }
+
+
+
+
+    
+
+        // function to select the symptoms from the symptomlist
         // let listItems = document.getElementsByClassName("symptomsDisplay");
         // console.log("listItems", listItems);
 
@@ -66,7 +92,7 @@ let printSymptom = require("./dom-builder");
 
         
 
-        module.exports = { makeFBCall};
+        module.exports = { makeFBCall, getFBDetails, addUserFB, updateUserFB};
 
     // this function is to call the symptoms list triggered by the "select symptoms" button.
 
