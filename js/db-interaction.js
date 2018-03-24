@@ -20,11 +20,14 @@ let printSymptom = require("./dom-builder");
         .then((symptomsList) => {
         console.log("symptomsList", symptomsList);
         // printSymptom is the variable for the domBuilder
-      printSymptom.printListToDom(symptomsList);
+        printSymptom.printListToDom(symptomsList);
         },
         (reject) => {
         console.log("SOMETHING WENT REALLY WRONG");
         });
+
+        
+            //printListToDom();
 
         function getFBDetails(user){
             return $.ajax({
@@ -57,8 +60,14 @@ let printSymptom = require("./dom-builder");
                 return userID;
              });
         }
+        // window.onload= createText();
 
+        // let alert;
 
+        // function createText() {
+        //     alert("This is the first.");
+        //   }
+        
 
 
     
@@ -92,7 +101,7 @@ let printSymptom = require("./dom-builder");
 
         
 
-        module.exports = { makeFBCall, getFBDetails, addUserFB, updateUserFB};
+        module.exports = { makeFBCall, getFBDetails, addUserFB, updateUserFB, };
 
     // this function is to call the symptoms list triggered by the "select symptoms" button.
 

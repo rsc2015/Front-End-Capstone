@@ -2,8 +2,8 @@
 @import 'symptoms';
 .content-1{
     /*padding-top :50px;*/
-    margin-top:80px;
-    height: 600px;
+    margin-top:20px;
+    height: 700px;
     background-color: white;
     border: .5px solid #5A9693;
     box-shadow: 5px 5px #d6d2d2;
@@ -24,7 +24,7 @@
     /* background-color: #3D96C5; 
     height: 60px; */
     color: white;
-    border-bottom: 1px solid #5A9693;
+    // border-bottom: 1px solid #5A9693;
 }
 
 .btn-outline-custom :hover{
@@ -50,4 +50,9 @@
 
 .is-hidden{
     display: none;
+}
+
+.signinlink{
+    display:block;
+    float:right;
 }

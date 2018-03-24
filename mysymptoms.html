@@ -14,36 +14,13 @@
   <body class="main">
     <nav class="navbar navbar-expand-lg navbar-light bg-custom navtop">
         <div class="container-fluid">
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <a class="navbar-brand" href="#">Logo</a>
-    
-      <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
-        <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
-          <li class="nav-item active">
-            <a class="nav-link" href="#">Who we are  <span class="sr-only">(current)</span></a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Mission</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link disabled" href="#">Contact us</a>
-          </li>
-        </ul>
-        <ul class="navbar-nav">
-          <li class="nav-item">
-            <a class="nav-link" href="{{ url('/Settings') }}">Settings</a>
-          </li>
-          <li class="nav-item">
-            <li class="nav-item" id="auth-btn"><a href="#" class="is-hidden nav-link" title="">Sign In</a></li>
-            <li class="nav-link" id="logout"><a href="#" title="">Logout</a></li>
-          </li>
-        </ul>
-        <form class="form-inline my-2 my-lg-0">
-          <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-          <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-        </form>
+          <div class="signinlink">
+        <ul class="navbar-nav"> 
+          <!-- <li class="nav-item"> -->
+            <li class="nav-item" id="auth-btn"><a href="#" class="nav-link" title="">Sign In</a></li>
+            <li class="is-hidden nav-link" id="logout"><a href="#" title="">Logout</a></li>
+          <!--</li> -->
+        </ul> 
       </div>
       </div>
     </nav>
@@ -60,36 +37,46 @@
           </ol>
         <div class="row">
             <div class="col-sm-6 card1">
-              <div class="card symptom-card">
-                <div class="card-body">
-                  <h5 class="card-title symptomsHeading1">Symptoms to track</h5>
-                  <p class="card-text symptomsSubHeading1">Begin by choosing upto 4 symptoms to manage.</p>
-                  <ul class="list-group list-group-flush symptomsDisplay" id="symptomData"></ul>
-                </div>
-                <!-- <div class="container">
-                    <a href="#" data-toggle="popover" title="Symptoms" data-content="Symptoms are what you feel when something is amiss. Symptoms can be related to your physical state or your emotional wellbeing.">What are Symptoms?</a>  
-                  </div>    -->
-              </div>
+              <!--list of symptom rendered from firebase JSON-->
             </div><!-- "col-sm-6 card1" -->
-            <div class="col-sm-6 card1">
+            <div class="col-sm-6 box-right1">
               <div class="card">
-                <div class="card-body  box-right">
-                  <h5 class="card-title symptomsHeading1">My Symptoms</h5>
-                  <p class="card-text symptomsSubHeading1">Your selected symptoms will display here.</p>
-                  <div class="symptom-card-text">
+                <div class="card-body box-right">
+                  <h5 class="card-title symptomsHeading1">My History</h5>
+                  <p class="card-text symptomsSubHeading1">If you can determine when your symptoms first began.</p>
+                  <div class="symptom-card-text" id="selectedSypmtoms">
+                      <form action="/action_page.php" >
+                        <label class="symptomsHeading1">Symptom Onset Date:</label><br>
+                        <input type="date" name="bday" min="1979-12-31"><br>
+                        <label class="symptomsHeading1">List all current Medications:</label><br>
+                        <input type="text" id="myText" value="Enter medication #1..."><br>
+                        <input type="text" id="myText" value="Enter medication #2..."><br>
+                        <input type="text" id="myText" value="Enter medication #3..."><br>
+                        <input type="text" id="myText" value="Enter medication #4..."><br>
+                        <label class="symptomsHeading1">Physician Visited:</label><br>
+                        <input type="text" id="myText" value="Physician name here...">
+                        <!-- <input type="submit">  -->
+                        </form>
+                      <!-- <div class="form-group">
+                          <label for="FormControlTextarea1">Notes</label>
+                          <textarea class="form-control" id="FormControlTextarea1" rows="3"></textarea>
+                      </div> -->
+
                 </div>
                   <a href="#" class="btn btn-primary btn-1">Continue</a>
                   </div>
                 </div>
               </div>
-            </div>
-      </div>
+            </div><!--row-->
+      </div><!--content-1-->
 <nav class="navbar navbar-expand-sm bg-dark navbar-dark fixed-bottom">
     ...
 </nav>
-<script>
+<script src="https://www.gstatic.com/firebasejs/4.12.0/firebase.js"></script>
+<script type='text/javascript' src='//ajax.googleapis.com/ajax/libs/jquery/1.4/jquery.min.js'></script>
+<!-- <script type='text/javascript' src='js/jquery.ba-hashchange.min.js'></script>
+<script type='text/javascript' src='js/dynamicpage.js'></script> -->
 
-</script>
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
    <!-- Latest compiled and minified CSS -->
@@ -97,10 +84,10 @@
 <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"> -->
 
 <!-- jQuery library -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>-->
 
-<!-- Popper JS -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+<!--Popper JS-->
+<!--<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script> -->
 
 <!-- Latest compiled JavaScript -->
 <!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script> -->
