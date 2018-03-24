@@ -20,11 +20,14 @@ let printSymptom = require("./dom-builder");
         .then((symptomsList) => {
         console.log("symptomsList", symptomsList);
         // printSymptom is the variable for the domBuilder
-      printSymptom.printListToDom(symptomsList);
+        printSymptom.printListToDom(symptomsList);
         },
         (reject) => {
         console.log("SOMETHING WENT REALLY WRONG");
         });
+
+        
+            //printListToDom();
 
         function getFBDetails(user){
             return $.ajax({
