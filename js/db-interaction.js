@@ -19,9 +19,9 @@ let printSymptom = require("./dom-builder");
         // `${firebase.getFBsettings().databaseURL}/songs.json?orderBy="uid"&equalTo="${user}"`
         // https://symtrak-34d63.firebaseio.com/symptoms.json?orderBy="uid"&equalTo="${user}"`
         .then((symptomsList) => {
-        console.log("symptomsList", symptomsList);
         // printSymptom is the variable for the domBuilder
         printSymptom.printListToDom(symptomsList);
+        // printSymptom.historyForm(history, historyId);
         },
         (reject) => {
         console.log("SOMETHING WENT REALLY WRONG");
@@ -30,9 +30,11 @@ let printSymptom = require("./dom-builder");
         
         function getFBDetails(user){
             return $.ajax({
-                url: `${firebase.getFBsettings().databaseURL}//user.json?orderBy="uid"&equalTo="${user}"`
+                url: `${firebase.getFBsettings().databaseURL}/user.json?orderBy="uid"&equalTo="${user}"`
              }).done((resolve) => {
-                return resolve;
+                console.log("symptomsList-user", resolve);
+                // printSymptom.printListToDom(symptomsList);
+                 return resolve;
              }).fail((error) => {
                 return error;
              });
@@ -93,7 +95,7 @@ let printSymptom = require("./dom-builder");
         function getHistory(historyId) {
             console.log("here is the problem");
             return $.ajax({
-                url: `h${firebase.getFBsettings().databaseURL}/histories/${historyId}.json`
+                url: `${firebase.getFBsettings().databaseURL}/histories/${historyId}.json`
             }).done((historyData) => {
                 return historyData;
             }).fail((error) => {
@@ -103,7 +105,7 @@ let printSymptom = require("./dom-builder");
         
         function editHistory(historyFormObj, historyId) {
             return $.ajax({
-                url: `h${firebase.getFBsettings().databaseURL}/histories/${historyId}.json`,
+                url: `${firebase.getFBsettings().databaseURL}/histories/${historyId}.json`,
                 type: 'PUT',
                 data: JSON.stringify(historyFormObj)
             }).done((data) => {
