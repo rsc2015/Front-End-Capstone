@@ -5,7 +5,7 @@ let user = require("./user");
 
 function printListToDom(symptomsList){
   //console.log("symptomsList1", symptomsList);
-  let currentUser = user.getUser();
+ user.getUser();
   let symptomListRender =
    $(`<div class="card symptom-card">
      <div class="card-body">
@@ -15,12 +15,45 @@ function printListToDom(symptomsList){
      </div>
    </div>`);
    $(".card1").html(symptomListRender);
-  for (var i=0; i < 12; i++){
+   for (var i=0; i < 12; i++){
     let symptomNames = symptomsList;
       console.log("Symptom Name:", symptomNames[i].name);
       $('#symptomData').append(`<li class="list-group-item symptomsDisplay" name="symName">
       <input class="singlecheckbox" type="checkbox" name="test" value="1"/>${symptomNames[i].name}</li>`);
   }
+   let historyDisplay =
+      $(`<div class="card">
+          <div class="card-body box-right">
+            <h5 class="card-title symptomsHeading1">My History</h5>
+              <p class="card-text symptomsSubHeading1">If you can determine when your symptoms first began.</p>
+                <div class="symptom-card-text" id="enterHistory">
+                </div>
+             <a href="#" class="btn btn-primary btn-1">Continue</a>
+          </div>
+        </div>`);
+      $(".box-right1").html(historyDisplay);
+      let form =
+          $(`<form action="/action_page.php">
+          <div class="form-group">
+              <label class="symptomsHeading1">Symptom Onset Date:</label><br>
+              <input type="date" class="form-control" id="form--date" placeholder="date" value="><br>
+          </div>
+          <div class="form-group">
+              <label class="symptomsHeading1">List all current Medications:</label><br>
+              <input type="text" class="form-control" id="form--medication1" placeholder="medication #1" value=""><br>
+              <input type="text" class="form-control" id="form--medication2" placeholder="medication #2" value=""><br>
+              <input type="text" class="form-control" id="form--medication3" placeholder="medication #3" value=""><br>
+              <input type="text" class="form-control" id="form--medication4" placeholder="medication #4" value=""><br>
+            
+          </div>
+          <div class="form-group">
+              <label class="symptomsHeading1">Physician Visited:</label><br>
+              <input type="text" class="form-control" id="form--physician1" placeholder="physician #1" value=""><br>
+              <input type="text" class="form-control" id="form--physician2" placeholder="physician #2" value=""><br>
+          </div>
+          <button type="submit" class="btn btn-primary">Submit</button>
+        </form>`);
+        $(".symptom-card-text").html(form);
   }
 
   // $('#symptomData').getLabels();
@@ -71,7 +104,7 @@ function printListToDom(symptomsList){
     //   $(".box-right1").html($historyDisplay);
     //   for (let history in historyForm ) {
     //     let currentHistory = historyForm[history],
-    //         historyForm = $("<div>", {class: "song-list__item"}),
+    //         historyForm = $("<div>", {class: "history-list__item"}),
     //         title = $("<span/>", {class: "song-title"}).text(currentSong.title),
     //         songListData = $("<ul/>", {class: "song-list__item--data"}),
     //         songListEdit = $("<a>", {"data-edit-id": song, class: "edit-btn waves-effect waves-light btn", text: "edit" }),
@@ -88,38 +121,44 @@ function printListToDom(symptomsList){
     //   }
     // }
     
-    function historyForm(history, historyId) {
-      return new Promise(function (resolve, reject) {
-        let historyItem = {
-          date: history ? history.date : "",
-          medication1 : history ? history.medication1 : "",
-          medication2: history ? history.medication2: "",
-          medication3: history ? history.medication3: "",
-          medication4: history ? history.medication4: "",
-          physician1: history ? history.physician1: "",
-          physician2: history ? history.physician2: "",
-
-          formTitle: history ? `Edit "${history.title}"` : "Add a new song",
-          btnText: history ? "save changes" : "save history",
-          btnId: history ? "save_edit_btn" : "save_new_btn"
-        },
-        form =
-          `<div class="form-group col-lg-6" id="formLeft"><form action="/action_page.php" >
-          <label class="symptomsHeading1">Symptom Onset Date:</label><br>
-              <input type="date" class="form-control" id="form--date" placeholder="date" value="${historyItem.date}><br>
-          <label class="symptomsHeading1">List All Current Medications:</label><br>
-              <input type="text" class="form-control" id="form--medication1" placeholder="medication #1" value="${historyItem.medication1}"><br>
-              <input type="text" class="form-control" id="form--medication2" placeholder="medication #2" value="${historyItem.medication2}"><br>
-              <input type="text" class="form-control" id="form--medication3" placeholder="medication #3" value="${historyItem.medication3}"><br>
-              <input type="text" class="form-control" id="form--medication4" placeholder="medication #4" value="${historyItem.medication4}"><br>
-          <label class="symptomsHeading1">Physician Visited:</label><br>
-              <input type="text" class="form-control" id="form--physician1" placeholder="physician #1" value="${historyItem.physician1}"><br>
-              <input type="text" class="form-control" id="form--physician2" placeholder="physician #2" value="${historyItem.physician2}"><br>
-          <button id="${historyId}" class=${historyItem.btnId}>${historyItem.btnText}</button>
-              <input type="submit"></form></div>` ;
-        resolve(form);
-      });
-    }
+    // function historyForm(history, historyId) {
+    //   return new Promise(function (resolve, reject) {
+    //     let historyItem = {
+    //       date: history ? history.date : "",
+    //       medication1 : history ? history.medication1 : "",
+    //       medication2: history ? history.medication2: "",
+    //       medication3: history ? history.medication3: "",
+    //       medication4: history ? history.medication4: "",
+    //       physician1: history ? history.physician1: "",
+    //       physician2: history ? history.physician2: "",
+    //       formTitle: history ? `Edit "${history.title}"` : "Add a new history",
+    //       btnText: history ? "save changes" : "save history",
+    //       btnId: history ? "save_edit_btn" : "save_new_btn"
+    //     },
+    //     form =
+    //     `<form action="/action_page.php">
+    //     <div class="form-group">
+    //         <label class="symptomsHeading1">Symptom Onset Date:</label><br>
+    //         <input type="date" class="form-control" id="form--date" placeholder="date" value="${historyItem.date}><br>
+    //     </div>
+    //     <div class="form-group">
+    //         <label class="symptomsHeading1">List all current Medications:</label><br>
+    //         <input type="text" class="form-control" id="form--medication1" placeholder="medication #1" value="${historyItem.medication1}"><br>
+    //         <input type="text" class="form-control" id="form--medication2" placeholder="medication #1" value="${historyItem.medication2}"><br>
+    //         <input type="text" class="form-control" id="form--medication3" placeholder="medication #1" value="${historyItem.medication3}"><br>
+    //         <input type="text" class="form-control" id="form--medication4" placeholder="medication #1" value="${historyItem.medication4}"><br>
+    //       <!-- <input type="password" class="form-control" id="pwd" placeholder="Enter password" name="pswd"> -->
+    //     </div>
+    //     <div class="form-group">
+    //         <label class="symptomsHeading1">Physician Visited:</label><br>
+    //         <input type="text" class="form-control" id="form--physician1" placeholder="physician #1" value="${historyItem.physician1}"><br>
+    //         <input type="text" class="form-control" id="form--physician2" placeholder="physician #2" value="${historyItem.physician2}"><br>
+    //     </div>
+    //     <button type="submit" class="btn btn-primary ${historyItem.btnId}" id="${historyId}>${historyItem.btnText}</button>
+    //   </form>`;
+    //     resolve(form);
+    //   });
+    // }
    
      //https://www.w3schools.com/howto/tryit.asp?filename=tryhow_custom_select
      // Pass the checkbox name to the function
@@ -146,8 +185,8 @@ function printListToDom(symptomsList){
 
 
 // module.exports = {printListToDom, getCheckedBoxes};
-
+// createHistoryForm,
+//historyForm
 module.exports = {
-  printListToDom, 
-  createHistoryForm,
-  historyForm};
+  printListToDom,
+  };
