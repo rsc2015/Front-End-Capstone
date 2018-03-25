@@ -70,7 +70,17 @@ input{
 
 // .symptomsDisplay
 .form-group{
-    margin-left: 20px;
+    margin-left: 14px;
 
+}
+
+input.form-control{
+    width: 80%;
+    padding: 1.5px;
+
+}
+
+label.symptomsHeading1{
+    margin-bottom:8px;
 }
 
