@@ -5,6 +5,7 @@
 let $ = require('jquery'),
 firebase = require("./fb-config");
 let printSymptom = require("./dom-builder");
+let currentUser = null;
     
 
      function makeFBCall(url) {
@@ -27,37 +28,54 @@ let printSymptom = require("./dom-builder");
         });
 
         
-        function getFBDetails(user){
+        function getFBDetails(user) {
             return $.ajax({
-                url: `${firebase.getFBsettings().databaseURL}/user.json?orderBy="uid"&equalTo="${user}"`
-             }).done((resolve) => {
-                console.log("symptomsList-user", resolve);
-                 return resolve;
-             }).fail((error) => {
+                url: `${firebase.getFBsettings().databaseURL}//user.json?orderBy="uid"&equalTo="${user}"`
+            }).done((resolve)  => {
+                return resolve;
+            }).fail((error) => {
                 return error;
-             });
-          }
+            });
+        }
 
-          function addUserFB(userObj){
+        function addUserFB(userObj) {
             return $.ajax({
                 url: `${firebase.getFBsettings().databaseURL}/user.json`,
                 type: 'POST',
                 data: JSON.stringify(userObj),
                 dataType: 'json'
-             }).done((fbID) => {
-                return fbID;
-             });
+            }).done((userID) => {
+                return userID;
+            });
         }
         
-        function updateUserFB(userObj){
+        function updateUserFB(userObj) {
             return $.ajax({
-                url: `${firebase.getFBsettings().databaseURL}/user/${userObj.fbID}.json`,
+                url: `${firebase.getFBsettings().databaseURL}/user/${userObj.userID}.json`,
                 type: 'PUT',
                 data: JSON.stringify(userObj),
                 dataType: 'json'
-             }).done((userID) => {
+            }).done((userID) => {
                 return userID;
-             });
+            });
+        }
+
+        function createUser(userObj) {
+            return firebase.auth().createUserWithEmailAndPassword(userObj.email, userObj.password)
+                .catch(function (error) {
+                    let errorCode = error.code;
+                    let errorMessage = error.message;
+                    console.log("check if you get error: ", errorCode, errorMessage);
+                });
+        }
+
+        function loginUser(userObj) {
+            return firebase.auth().signInWithEmailAndPassword(userObj.email, userObj.password)
+                .catch(function (error) {
+                    let errorCode = error.code;
+                    let errorMessage = error.message;
+                    console.log("Error: either email or password is incorrect ", errorCode, errorMessage);
+            });
         }
         
 
@@ -65,8 +83,8 @@ let printSymptom = require("./dom-builder");
         function getHistories(user) {
             return $.ajax({
                 url:`${firebase.getFBsettings().databaseURL}/histories.json?orderBy="uid"&equalTo="${user}"`
-            }).done((deliveryData) => {
-                return deliveryData;
+            }).done((historyData) => {
+                return historyData;
             });
         }
         
@@ -111,7 +129,22 @@ let printSymptom = require("./dom-builder");
             });
         }
 
-        //  let submitHistory = document.getElementById("submitHistory").addEventListener("click", docHistory => {
+        module.exports = { 
+            makeFBCall, 
+            getFBDetails, 
+            addUserFB, 
+            updateUserFB, 
+            createUser,
+            loginUser,
+            getHistories,
+            addHistory,
+            deleteHistory,
+            getHistory,
+            editHistory,
+            };
+
+
+            //  let submitHistory = document.getElementById("submitHistory").addEventListener("click", docHistory => {
         //      var symptomOnset = document.getElementById("form-date").value;
         //      var med1 = document.getElementById("form-medication1").value;
         //      var med2 = document.getElementById("form-medication2").value;
@@ -136,18 +169,5 @@ let printSymptom = require("./dom-builder");
         //          console.log("selectedSymptoms", selectedSymptoms);
         //     }
         // }
-        
-
-        module.exports = { 
-            makeFBCall, 
-            getFBDetails, 
-            addUserFB, 
-            updateUserFB, 
-            getHistories,
-            addHistory,
-            deleteHistory,
-            getHistory,
-            editHistory,
-            };
 
     
