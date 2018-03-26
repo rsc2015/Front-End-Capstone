@@ -5,6 +5,7 @@
 let $ = require('jquery'),
 firebase = require("./fb-config");
 let printSymptom = require("./dom-builder");
+let currentUser = null;
     
 
      function makeFBCall(url) {
@@ -21,45 +22,60 @@ let printSymptom = require("./dom-builder");
         .then((symptomsList) => {
         // printSymptom is the variable for the domBuilder
         printSymptom.printListToDom(symptomsList);
-        // printSymptom.historyForm(history, historyId);
         },
         (reject) => {
         console.log("SOMETHING WENT REALLY WRONG");
         });
 
         
-        function getFBDetails(user){
+        function getFBDetails(user) {
             return $.ajax({
-                url: `${firebase.getFBsettings().databaseURL}/user.json?orderBy="uid"&equalTo="${user}"`
-             }).done((resolve) => {
-                console.log("symptomsList-user", resolve);
-                // printSymptom.printListToDom(symptomsList);
-                 return resolve;
-             }).fail((error) => {
+                url: `${firebase.getFBsettings().databaseURL}//user.json?orderBy="uid"&equalTo="${user}"`
+            }).done((resolve)  => {
+                return resolve;
+            }).fail((error) => {
                 return error;
-             });
-          }
+            });
+        }
 
-          function addUserFB(userObj){
+        function addUserFB(userObj) {
             return $.ajax({
                 url: `${firebase.getFBsettings().databaseURL}/user.json`,
                 type: 'POST',
                 data: JSON.stringify(userObj),
                 dataType: 'json'
-             }).done((fbID) => {
-                return fbID;
-             });
+            }).done((userID) => {
+                return userID;
+            });
         }
         
-        function updateUserFB(userObj){
+        function updateUserFB(userObj) {
             return $.ajax({
-                url: `${firebase.getFBsettings().databaseURL}/user/${userObj.fbID}.json`,
+                url: `${firebase.getFBsettings().databaseURL}/user/${userObj.userID}.json`,
                 type: 'PUT',
                 data: JSON.stringify(userObj),
                 dataType: 'json'
-             }).done((userID) => {
+            }).done((userID) => {
                 return userID;
-             });
+            });
+        }
+
+        function createUser(userObj) {
+            return firebase.auth().createUserWithEmailAndPassword(userObj.email, userObj.password)
+                .catch(function (error) {
+                    let errorCode = error.code;
+                    let errorMessage = error.message;
+                    console.log("check if you get error: ", errorCode, errorMessage);
+                });
+        }
+
+        function loginUser(userObj) {
+            return firebase.auth().signInWithEmailAndPassword(userObj.email, userObj.password)
+                .catch(function (error) {
+                    let errorCode = error.code;
+                    let errorMessage = error.message;
+                    console.log("Error: either email or password is incorrect ", errorCode, errorMessage);
+            });
         }
         
 
@@ -67,8 +83,8 @@ let printSymptom = require("./dom-builder");
         function getHistories(user) {
             return $.ajax({
                 url:`${firebase.getFBsettings().databaseURL}/histories.json?orderBy="uid"&equalTo="${user}"`
-            }).done((deliveryData) => {
-                return deliveryData;
+            }).done((historyData) => {
+                return historyData;
             });
         }
         
@@ -113,17 +129,45 @@ let printSymptom = require("./dom-builder");
             });
         }
 
-        
-
         module.exports = { 
             makeFBCall, 
             getFBDetails, 
             addUserFB, 
             updateUserFB, 
+            createUser,
+            loginUser,
             getHistories,
             addHistory,
             deleteHistory,
             getHistory,
-            editHistory};
+            editHistory,
+            };
+
+
+            //  let submitHistory = document.getElementById("submitHistory").addEventListener("click", docHistory => {
+        //      var symptomOnset = document.getElementById("form-date").value;
+        //      var med1 = document.getElementById("form-medication1").value;
+        //      var med2 = document.getElementById("form-medication2").value;
+        //      var med3 = document.getElementById("form-medication3").value;
+        //      var med4 = document.getElementById("form-medication4").value;
+        //      var phy1 = document.getElementById("form-physician1").value;
+        //      var phy2 = document.getElementById("form-physician2").value;
+        //      document.getElementById("myHistory1").innerText = "Medication 1:" + med1 +  "Medication 2:" + med1 +  "Medication 3:" + med3;
+        //  });
+        //  docHistory();
+
+        
+        ///function to output the symptom selection
+
+        // function printChecked(){
+        //     var symItems = document.getElementsByName("symCheckName");
+        //     console.log("symItems-inter", symItems);
+        //     var selectedSymptoms = "";
+        //     for (var i = 0; i < symItems.length; i++ ){
+        //         if (symItems[i].type == 'checkbox' && symItems[i].checked==true);
+        //          selectedSymptoms += symItems[i].value;
+        //          console.log("selectedSymptoms", selectedSymptoms);
+        //     }
+        // }
 
     
