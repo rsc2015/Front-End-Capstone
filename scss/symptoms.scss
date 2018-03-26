@@ -10,13 +10,18 @@ body {
 //     // justify-content: space-around;
 //     // display: flex;
 // }
-    
+
+form.form-container{
+    width:98%;
+    margin-left: 10px;
+}
 .card{
     margin-top: 25px;
     }
 
 .card1{
 margin-top: 15px;
+// padding-left:15px;
 }
 
 .box-right1{
@@ -95,3 +100,16 @@ label.symptomsHeading1{
     margin-left: 30px;
 }
 
+#submitHistory{
+    float : right;
+    background-color:rgb(106, 173, 170);
+    opacity: 0.80;
+    color: white;
+    margin-right:60px;
+}
+
+
+#submitHistory:hover {
+    box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);  
+    
+}

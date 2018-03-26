@@ -28,7 +28,7 @@ function printListToDom(symptomsList){
               <p class="card-text symptomsSubHeading1">If you can determine when your symptoms first began.</p>
                 <div class="symptom-card-text" id="enterHistory">
                 </div>
-             <a href="#" class="btn btn-primary btn-1">Continue</a>
+             
           </div>
         </div>`);
       $(".box-right1").html(historyDisplay);
@@ -52,30 +52,7 @@ function printListToDom(symptomsList){
           <button type="submit" class="btn btn-primary" id="submitHistory">Submit</button>`);
         $(".symptom-card-text").html(form);
   }
-// <form action="">
-  // <form action="/action_page.php">
-  // $('#symptomData').getLabels();
-     // function to select the symptoms from the symptomlist
-    //  function printSymptomToBox(symptomsList){ 
-     let symptomItems = document.getElementsByClassName("singlecheckbox");
-     console.log("symptomItems", symptomItems); 
-     let symptomItemNames = document.getElementsByName("symName");
-     console.log("symptomItemNames", symptomItemNames);
-     var symItems = document.getElementsByName("symCheckName");
-            console.log("symItems", symItems);
-            var symItems = document.getElementsByName("symCheckName");
-            console.log("symItems-inter", symItems);
-            var selectedSymptoms = "";
-            for (var i = 0; i < symItems.length; i++ ){
-                if (symItems[i].type == 'checkbox' && symItems.item(i).checked == true);
-                 selectedSymptoms += symptomItemNames[i].innerText;
-       
-            }
-            console.log("selectedSymptoms", selectedSymptoms);
 
-
-
-    
     function createHistoryFormList(historyList) {
       let $historyListDisplay =
       $(`<div class="uiContainer__history-list box col s12">
@@ -105,7 +82,7 @@ function printListToDom(symptomsList){
         $(".history-list").append(historyListItem.append(historyListData).append(historyListDelete).append(historyListEdit));
       }
     }
-   
+    
     function historyForm(history, historyId) {
       return new Promise(function (resolve, reject) {
         let historyItem = {
@@ -149,4 +126,28 @@ function printListToDom(symptomsList){
 //historyForm
 module.exports = {
   printListToDom,
+  createHistoryFormList,
+  historyForm
   };
+
+
+  // <form action="">
+  // <form action="/action_page.php">
+  // $('#symptomData').getLabels();
+     // function to select the symptoms from the symptomlist
+    //  function printSymptomToBox(symptomsList){ 
+      // let symptomItems = document.getElementsByClassName("singlecheckbox");
+      // console.log("symptomItems", symptomItems); 
+      // let symptomItemNames = document.getElementsByName("symName");
+      // console.log("symptomItemNames", symptomItemNames);
+      // var symItems = document.getElementsByName("symCheckName");
+      //        console.log("symItems", symItems);
+      //        var symItems = document.getElementsByName("symCheckName");
+      //        console.log("symItems-inter", symItems);
+      //        var selectedSymptoms = "";
+      //        for (var i = 0; i < symItems.length; i++ ){
+      //            if (symItems[i].type == 'checkbox' && symItems.item(i).checked == true);
+      //             selectedSymptoms += symptomItemNames[i].innerText;
+                  
+      //        }
+      //        console.log("selectedSymptoms", selectedSymptoms);
