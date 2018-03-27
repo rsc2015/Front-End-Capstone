@@ -53,6 +53,13 @@ function printListToDom(symptomsList){
         $(".symptom-card-text").html(form);
   }
 
+  //function to render input values to DOM
+  // let myForm = document.getElementById("submit-history");
+  //   //Extract Each Element Value
+  //   for (var i = 0; i < submit-history.elements.length; i++) {
+  //   console.log("form-value", submit-history.elements[i].value);
+  //   }
+
     function createHistoryFormList(historyList) {
       let $historyListDisplay =
       $(`<div class="uiContainer__history-list box col s12">
@@ -62,12 +69,12 @@ function printListToDom(symptomsList){
       $(".content-1").html($historyListDisplay);
      for (let history in historyList ) {
         let currentHistory = historyList[history],
-             historyListItem = $("<li>", {class: "history-list__item"}),
+            historyListItem = $("<li>", {class: "history-list__item"}),
             title = $("<span/>", {class: "history-title"}).text(currentHistory.title),
             historyListData = $("<ul/>", {class: "history-list__item--data"}),
             historyListEdit = $("<a>", {"data-edit-id": history, class: "edit-btn waves-effect waves-light btn", text: "edit" }),
             historyListDelete = $("<a>", {"data-delete-id": history, class: "delete-btn waves-effect waves-light btn", text: "delete" });
-    
+            
             historyListData.append(
           `<li>${currentHistory.date}</li>
           <li>${currentHistory.med1}</li>
@@ -76,12 +83,26 @@ function printListToDom(symptomsList){
           <li>${currentHistory.med4}</li>
           <li>${currentHistory.phy1}</li>
           <li>${currentHistory.phy2}</li>`);
-    
         $(".history-list").append(historyListItem.append(title));
         $(".history-list").append(historyListItem.append(historyListData).append(historyListDelete).append(historyListEdit));
+        console.log("currentHistory", currentHistory);
       }
     }
-    
+
+    function createUserHistory(history) {
+      let userHistory = {
+          name: '',
+          symptom1: '',
+          symptom2: '',
+          med1: '',
+          med2: '',
+          med3: '',
+          uid: user.getUser()
+      };
+      return userHistory;
+    }
+
+
     function historyForm(history, historyId) {
       return new Promise(function (resolve, reject) {
         let historyItem = {
