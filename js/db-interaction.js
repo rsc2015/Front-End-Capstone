@@ -48,6 +48,18 @@ let currentUser = null;
                 return userID;
             });
         }
+
+        // function to add history of the patient
+        function addUserHistoryFB(historyObj) {
+            return $.ajax({
+                url: `${firebase.getFBsettings().databaseURL}/histories.json`,
+                type: 'POST',
+                data: JSON.stringify(historyObj),
+                dataType: 'json'
+            }).done((historyID) => {
+                return historyID;
+            });
+        }
         
         function updateUserFB(userObj) {
             return $.ajax({
@@ -80,6 +92,9 @@ let currentUser = null;
         
 
 /////getting and setting history to db////
+
+
+
         function getHistories(user) {
             return $.ajax({
                 url:`${firebase.getFBsettings().databaseURL}/histories.json?orderBy="uid"&equalTo="${user}"`
@@ -141,6 +156,7 @@ let currentUser = null;
             deleteHistory,
             getHistory,
             editHistory,
+            addUserHistoryFB,
             };
 
 
