@@ -67,7 +67,6 @@ function printListToDom(symptomsList){
             historyListData = $("<ul/>", {class: "history-list__item--data"}),
             historyListEdit = $("<a>", {"data-edit-id": history, class: "edit-btn waves-effect waves-light btn", text: "edit" }),
             historyListDelete = $("<a>", {"data-delete-id": history, class: "delete-btn waves-effect waves-light btn", text: "delete" });
-            // Same as `<a id="${song}" class="delete-btn waves-effect waves-light btn">delete</a>`
     
             historyListData.append(
           `<li>${currentHistory.date}</li>
