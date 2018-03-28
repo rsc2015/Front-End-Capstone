@@ -19,7 +19,7 @@ function printListToDom(symptomsList){
     let symptomNames = symptomsList;
       console.log("Symptom Name:", symptomNames[i].name);
       $('#symptomData').append(`<li class="list-group-item symptomsDisplay" name="symName">
-      <input class="singlecheckbox" type="checkbox" name="symCheckName" value="1" id="${symptomNames[i].name}"/>${symptomNames[i].name}</li>`);
+      <input class="singlecheckbox" type="checkbox" name="symCheckName" value="${symptomNames[i].name}" id="${symptomNames[i].name}"/>${symptomNames[i].name}</li>`);
   }
    let historyDisplay =
       $(`<div class="card">
@@ -50,22 +50,70 @@ function printListToDom(symptomsList){
           </div>
           <button type="submit" class="btn btn-primary save_new_btn" id="submitHistory">Submit</button>`);
         $(".symptom-card-text").html(form);
+
+        var symSelected = [];
+      
+      
+        $(".singlecheckbox").change(function()  {
+               console.log("event listener attached");
+               console.log("checked this", this);
+              var thisChecked = $(this).val();
+              symSelected.push(thisChecked);
+              console.log("thisChecked", thisChecked );
+              console.log("symSelected", symSelected);      
+        });
+
+       
   }
 
-  //function to render input values to DOM
-  // let myForm = document.getElementById("submit-history");
-  //   //Extract Each Element Value
-  //   for (var i = 0; i < submit-history.elements.length; i++) {
-  //   console.log("form-value", submit-history.elements[i].value);
-  //   }
+// var symSelected = [];
+// var printTheSym = "";
+
+// function printSymTrakListToDom(){
+// for (var i=0; i < symSelected.length; i++){
+//   printTheSym += "<br>"+symSelected[i];
+//   console.log("printTheSym", printTheSym);
+//   }
+//   return printTheSym;// <-- to be printed to the div
+// }
+
+// document.getElementById('symTrakList').innerHTML = printSymTrakListToDom();
+
 
     function createHistoryFormList(historyList) {
-      let $historyListDisplay =
-      $(`<div class="uiContainer__history-list col-sm-12"">
+      let viewSymTrakOnDom = 
+      $(`<div class="row viewSymptomList  viewLiveChart">
+        <div class="col-sm-5  viewSymptomList">
+          <div class="card symptom-list">
+            <div class="card-body" id="myHistory1">
+                <h5 class="card-title symptomsHeading1">Track Your Symptom</h5>
+                <p class="card-text symptomsSubHeading1">Select your intensity for today</p>
+                <ul id="symTrakList"></ul>
+                              
+          </div>
+          </div>
+          <div class="card symptom-card medical-info">
+          
+        </div>
+        </div> 
+        <div class="col-sm-7">
+           <div class="card symptom-card">
+               <div class="card-body chartDisplay" id="myHistory1">
+                                  
+               </div>
+           </div>
+           </div>
+         </div>`);
+      $(".track-symptom1").html(viewSymTrakOnDom);
+      
+      let medicationList =
+      $(`<div class="card-body" id="myHistory1">
+        <h5 class="card-title symptomsHeading1">Your Current Medication Info:</h5>
+      
         <ul class="history-list">
         </ul>
         </div>`);
-      $(".content-1").html($historyListDisplay);
+      $(".medical-info").html(medicationList);
      for (let history in historyList ) {
         let currentHistory = historyList[history],
             historyListItem = $("<li>", {class: "history-list__item"}),
@@ -75,7 +123,7 @@ function printListToDom(symptomsList){
             historyListDelete = $("<a>", {"data-delete-id": history, class: "delete-btn waves-effect waves-light btn", text: "delete" });
             
             historyListData.append(
-          `<li>${currentHistory.date}</li>
+          `<p>Symptom Onset:${currentHistory.date}</p>
           <li>${currentHistory.med1}</li>
           <li>${currentHistory.med2}</li>
           <li>${currentHistory.med3}</li>
@@ -97,7 +145,6 @@ function printListToDom(symptomsList){
           medication1 : history ? history.medication1 : "",
           medication2: history ? history.medication2: "",
           medication3: history ? history.medication3: "",
-          medication4: history ? history.medication4: "",
           physician1: history ? history.physician1: "",
           physician2: history ? history.physician2: "",
           formTitle: history ? `Edit "${history.title}"` : "Add a new history",
@@ -127,14 +174,11 @@ function printListToDom(symptomsList){
     }
   
 
-
-// module.exports = {printListToDom, getCheckedBoxes};
-// createHistoryForm,
-//historyForm
 module.exports = {
   printListToDom,
   createHistoryFormList,
-  historyForm
+  historyForm,
+  // printSymTrakListToDom
   };
 
 
