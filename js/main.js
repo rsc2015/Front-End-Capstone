@@ -9,7 +9,7 @@ let user = require("./user");
 let login = require("./user");
 let fbConfig = require('./fb-config');
 let firebase = require("firebase/app");
-let templates1 = require("./trackSym");
+// let templates1 = require("./trackSym");
 let templates2 = require("./history");
 
 function loadHistoryToView() {
@@ -35,7 +35,6 @@ function loadHistoryToView() {
 
 // Send newhistory data to db then reload DOM with updated history data
 $(document).on("click", ".save_new_btn", function() {
-
   console.log("click save new history");
   let historyObj = buildHistoryObj();
   db.addHistory(historyObj)
@@ -82,10 +81,10 @@ $(document).on("click", ".delete-btn", function () {
 //make the view button work.
 //not needed when user logs in since that will
 //handle showing historys
-$("#view-historys").click(function() {
-  $(".uiContainer--wrapper").html("");
-  loadHistoryToView();
-});
+// $("#view-historys").click(function() {
+//   $(".uiContainer--wrapper").html("");
+//   loadHistoryToView();
+// });
 
 // Remove history then reload the DOM w/out new history
 $(document).on("click", ".delete-btn", function () {
@@ -100,10 +99,10 @@ $(document).on("click", ".delete-btn", function () {
 //make the view button work.
 //not needed when user logs in since that will
 //handle showing songs
-$("#view-historys").click(function() {
-  $(".uiContainer--wrapper").html("");
-  loadHistoryToView();
-});
+// $("#view-historys").click(function() {
+//   $(".uiContainer--wrapper").html("");
+//   loadHistoryToView();
+// });
 
 
 //***************************************************************************** */
@@ -114,19 +113,6 @@ $("#view-historys").click(function() {
 // Build a song obj from form data.
 // put into own module
 
-function createUserHistory(history) {
-  let userHistory = {
-      name: '',
-      symptom1: '',
-      symptom2: '',
-      med1: '',
-      med2: '',
-      med3: '',
-      uid: user.getUser()
-  };
-  return userHistory;
-}
-var historyID = "";
 
 
 //***************************************************************************** */
@@ -136,7 +122,6 @@ var historyID = "";
 // put into own module
 function buildHistoryObj() {
   let historyObj = {
-  symptom1: $("#symptomNames[i].name").val(),
   date: $("#form-date").val(),
   med1: $("#form-medication1").val(),
   med2: $("#form-medication2").val(),
@@ -160,7 +145,7 @@ function createUserObj(patient) {
 var userID = "";
 
 
-let myFirebase = firebase.database().ref();
+// let myFirebase = firebase.database().ref();
 
 // Reference to the recommendations object in your Firebase database
 let histories = firebase.database().ref("histories");
