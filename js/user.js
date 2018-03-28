@@ -4,7 +4,7 @@ let $ = require('jquery'),
     db = require("./db-interaction"),
     build = require('./buildFBObj');
 
-var firebase = require("firebase/app");
+let firebase = require("firebase/app");
         require("firebase/auth");
         require("firebase/database");
 

@@ -19,7 +19,7 @@ function printListToDom(symptomsList){
     let symptomNames = symptomsList;
       console.log("Symptom Name:", symptomNames[i].name);
       $('#symptomData').append(`<li class="list-group-item symptomsDisplay" name="symName">
-      <input class="singlecheckbox" type="checkbox" name="symCheckName" value="1"/>${symptomNames[i].name}</li>`);
+      <input class="singlecheckbox" type="checkbox" name="symCheckName" value="1" id="${symptomNames[i].name}"/>${symptomNames[i].name}</li>`);
   }
    let historyDisplay =
       $(`<div class="card">
@@ -42,14 +42,13 @@ function printListToDom(symptomsList){
               <input type="text" class="form-control" id="form-medication1" placeholder="medication #1" value=""><br>
               <input type="text" class="form-control" id="form-medication2" placeholder="medication #2" value=""><br>
               <input type="text" class="form-control" id="form-medication3" placeholder="medication #3" value=""><br>
-              <input type="text" class="form-control" id="form-medication4" placeholder="medication #4" value="">
           </div>
           <div class="form-group">
               <label class="symptomsHeading1">Physician Visited:</label><br>
               <input type="text" class="form-control" id="form-physician1" placeholder="physician #1" value=""><br>
               <input type="text" class="form-control" id="form-physician2" placeholder="physician #2" value=""><br>
           </div>
-          <button type="submit" class="btn btn-primary" id="submitHistory">Submit</button>`);
+          <button type="submit" class="btn btn-primary save_new_btn" id="submitHistory">Submit</button>`);
         $(".symptom-card-text").html(form);
   }
 
@@ -62,7 +61,7 @@ function printListToDom(symptomsList){
 
     function createHistoryFormList(historyList) {
       let $historyListDisplay =
-      $(`<div class="uiContainer__history-list box col s12">
+      $(`<div class="uiContainer__history-list col-sm-12"">
         <ul class="history-list">
         </ul>
         </div>`);
@@ -80,7 +79,6 @@ function printListToDom(symptomsList){
           <li>${currentHistory.med1}</li>
           <li>${currentHistory.med2}</li>
           <li>${currentHistory.med3}</li>
-          <li>${currentHistory.med4}</li>
           <li>${currentHistory.phy1}</li>
           <li>${currentHistory.phy2}</li>`);
         $(".history-list").append(historyListItem.append(title));
@@ -89,18 +87,7 @@ function printListToDom(symptomsList){
       }
     }
 
-    function createUserHistory(history) {
-      let userHistory = {
-          name: '',
-          symptom1: '',
-          symptom2: '',
-          med1: '',
-          med2: '',
-          med3: '',
-          uid: user.getUser()
-      };
-      return userHistory;
-    }
+
 
 
     function historyForm(history, historyId) {
@@ -124,15 +111,15 @@ function printListToDom(symptomsList){
         </div>
         <div class="form-group">
             <label class="symptomsHeading1">List all current Medications:</label><br>
-            <input type="text" class="form-control" id="form--medication1" placeholder="medication #1" value="${historyItem.medication1}"><br>
-            <input type="text" class="form-control" id="form--medication2" placeholder="medication #1" value="${historyItem.medication2}"><br>
-            <input type="text" class="form-control" id="form--medication3" placeholder="medication #1" value="${historyItem.medication3}"><br>
-            <input type="text" class="form-control" id="form--medication4" placeholder="medication #1" value="${historyItem.medication4}"><br>
+            <input type="text" class="form-control" id="form-medication1" placeholder="medication #1" value="${historyItem.medication1}"><br>
+            <input type="text" class="form-control" id="form-medication2" placeholder="medication #1" value="${historyItem.medication2}"><br>
+            <input type="text" class="form-control" id="form-medication3" placeholder="medication #1" value="${historyItem.medication3}"><br>
+            
         </div>
         <div class="form-group">
             <label class="symptomsHeading1">Physician Visited:</label><br>
-            <input type="text" class="form-control" id="form--physician1" placeholder="physician #1" value="${historyItem.physician1}"><br>
-            <input type="text" class="form-control" id="form--physician2" placeholder="physician #2" value="${historyItem.physician2}"><br>
+            <input type="text" class="form-control" id="form-physician1" placeholder="physician #1" value="${historyItem.physician1}"><br>
+            <input type="text" class="form-control" id="form-physician2" placeholder="physician #2" value="${historyItem.physician2}"><br>
         </div>
         <button id="${historyId}" class=${historyItem.btnId}>${historyItem.btnText}</button>`;
         resolve(form);
