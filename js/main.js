@@ -113,16 +113,7 @@ $("#view-historys").click(function() {
 // Helper functions for forms stuff. Nothing related to Firebase
 // Build a song obj from form data.
 // put into own module
-function buildHistoryObj() {
-  let historyObj = {
-  title: $("#form-date").val(),
-  med1: $("#form-med1").val(),
-  med2: $("#form-med2").val(),
-  med3: $("#form-med3").val(),
-  uid: user.getUser() // include uid to the object only if a user is logged in.
-};
-return historyObj;
-}
+
 function createUserHistory(history) {
   let userHistory = {
       name: '',
