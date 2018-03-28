@@ -64,7 +64,7 @@ function printListToDom(symptomsList){
         });
 
        
-  }
+}
 
 // var symSelected = [];
 // var printTheSym = "";
@@ -78,7 +78,7 @@ function printListToDom(symptomsList){
 // }
 
 // document.getElementById('symTrakList').innerHTML = printSymTrakListToDom();
-
+  
 
     function createHistoryFormList(historyList) {
       let viewSymTrakOnDom = 
@@ -111,7 +111,7 @@ function printListToDom(symptomsList){
         <h5 class="card-title symptomsHeading1">Your Current Medication Info:</h5>
       
         <ul class="history-list">
-        </ul>
+        </ul>        
         </div>`);
       $(".medical-info").html(medicationList);
      for (let history in historyList ) {
@@ -134,8 +134,8 @@ function printListToDom(symptomsList){
         console.log("currentHistory", currentHistory);
       }
     }
-
-
+     
+    
 
 
     function historyForm(history, historyId) {
@@ -180,25 +180,3 @@ module.exports = {
   historyForm,
   // printSymTrakListToDom
   };
-
-
-  // <form action="">
-  // <form action="/action_page.php">
-  // $('#symptomData').getLabels();
-     // function to select the symptoms from the symptomlist
-    //  function printSymptomToBox(symptomsList){ 
-      // let symptomItems = document.getElementsByClassName("singlecheckbox");
-      // console.log("symptomItems", symptomItems); 
-      // let symptomItemNames = document.getElementsByName("symName");
-      // console.log("symptomItemNames", symptomItemNames);
-      // var symItems = document.getElementsByName("symCheckName");
-      //        console.log("symItems", symItems);
-      //        var symItems = document.getElementsByName("symCheckName");
-      //        console.log("symItems-inter", symItems);
-      //        var selectedSymptoms = "";
-      //        for (var i = 0; i < symItems.length; i++ ){
-      //            if (symItems[i].type == 'checkbox' && symItems.item(i).checked == true);
-      //             selectedSymptoms += symptomItemNames[i].innerText;
-                  
-      //        }
-      //        console.log("selectedSymptoms", selectedSymptoms);
