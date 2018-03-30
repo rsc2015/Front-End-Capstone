@@ -24,9 +24,10 @@ function printListToDom(symptomsList){
       let historyDisplay =
         $(`<div class="card">
             <div class="card-body box-right">
-              <h5 class="card-title symptomsHeading1">My History</h5>
-                <p class="card-text symptomsSubHeading1">If you can determine when your symptoms first began.</p>
+              <h5 class="card-title symptomsHeading1">My Medical Info</h5>
+                <p class="card-text symptomsSubHeading1">Fill in the following form</p>
                   <div class="symptom-card-text" id="enterHistory">
+                
                   </div>
                   
             </div>
@@ -55,24 +56,24 @@ function printListToDom(symptomsList){
 
 }
 
-var symSelected = [];
-var printTheSym = "";
+// var symSelected = [];
+// var printTheSym = "";
 
-      // https://www.youtube.com/watch?v=B1X5oMUxEeI
+//       // https://www.youtube.com/watch?v=B1X5oMUxEeI
       
-        $(".singlecheckbox").change(function()  {
-               console.log("event listener attached");
-               console.log("checked this", this);
-              var thisChecked = $(this).val();
-              symSelected.push(thisChecked);
-              console.log("thisChecked", thisChecked );
-              console.log("symSelected", symSelected);      
-        });
+//         $(".singlecheckbox").change(function()  {
+//                console.log("event listener attached");
+//                console.log("checked this", this);
+//               var thisChecked = $(this).val();
+//               symSelected.push(thisChecked);
+//               console.log("thisChecked", thisChecked );
+//               console.log("symSelected", symSelected);      
+//         });
 
-for (var i=0; i < symSelected.length; i++){
-  printTheSym += "<br>"+symSelected[i];
-  console.log("printTheSym", printTheSym);
-}
+// for (var i=0; i < symSelected.length; i++){
+//   printTheSym += "<br>"+symSelected[i];
+//   console.log("printTheSym", printTheSym);
+// }
  
   // return printTheSym;// <-- to be printed to the div
 
@@ -150,7 +151,7 @@ for (var i=0; i < symSelected.length; i++){
           physician1: history ? history.physician1 : "",
           physician2: history ? history.physician2 : "",
           // formTitle: history ? `Edit "${history.title}"` : "Add a new history",
-          btnText: history ? "submit" : "save history",
+          btnText: history ? "save changes" : "save history",
           btnId: history ? "save_edit_btn" : "save_new_btn"
         },
         
@@ -158,7 +159,7 @@ for (var i=0; i < symSelected.length; i++){
         `<form class="row form-container" id="submit-history" method="get">
         <div class="form-group">
             <label class="symptomsHeading1">Symptom Onset Date:</label><br>
-            <input type="date" class="form-control" id="form--date" placeholder="date" value="${historyItem.date}"><br>
+            <input type="date" class="form-control" id="form-date" placeholder="date" value="${historyItem.date}"><br>
         </div>
         <div class="form-group">
             <label class="symptomsHeading1">List All Current Medications:</label><br>
@@ -172,7 +173,7 @@ for (var i=0; i < symSelected.length; i++){
             <input type="text" class="form-control" id="form-physician1" placeholder="physician #1" value="${historyItem.physician1}"></input><br>
             <input type="text" class="form-control" id="form-physician2" placeholder="physician #2" value="${historyItem.physician2}"></input><br>
         </div>
-        <button id="${historyId}" class="${historyItem.btnId}" id="submitHistory">${historyItem.btnText}</button>
+        <button id="${historyId}" class="${historyItem.btnId}">${historyItem.btnText}</button>
         </form>`;
         // $(".symptom-card-text").html(form);
         resolve(form);
@@ -182,27 +183,7 @@ for (var i=0; i < symSelected.length; i++){
       });
       
     }
-    function songForm(song, songId) {
-      return new Promise(function (resolve, reject) {
-        let songItem = {
-          title: song ? song.title : "",
-          artist: song ? song.artist : "",
-          year: song ? song.year : "",
-          album: song ? song.album : "",
-          // formTitle: song ? `Edit "${song.title}"` : "Add a new song",
-          btnText: song ? "save changes" : "save song",
-          btnId: song ? "save_edit_btn" : "save_new_btn"
-        },
-        form =
-          `
-          <input type="text" id="form--title" placeholder="title" value="${songItem.title}"></input>
-          <input type="text" id="form--artist" placeholder="artist" value="${songItem.artist}"></input>
-          <input type="text" id="form--album" placeholder="album" value="${songItem.album}"></input>
-          <input type="text" id="form--year" placeholder="year" value="${songItem.year}"></input>
-          <button id="${songId}" class=${songItem.btnId}>${songItem.btnText}</button>`;
-        resolve(form);
-      });
-    }
+  
 
 module.exports = {
   printListToDom,
