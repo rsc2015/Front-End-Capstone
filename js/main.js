@@ -51,11 +51,14 @@ $(document).on("click", ".edit-btn", function () {
   .then((history) => {
     console.log("edit this history", history);
     return templates.historyForm(history, historyID);
-  }).then((finishedForm,historyDisplay,symptomListRender) => {
+    
+  }).then((finishedForm) => {
     console.log("finishedForm", finishedForm);
-    $(".symptom-card-text").html(finishedForm);
-    $(".box-right1").html(historyDisplay);
-    $(".card1").html(symptomListRender);  
+    $(".content-1").html(finishedForm);
+    // $(".box-right1").html(historyDisplay);
+    // $(".card1").html(symptomListRender);  
+
+    // $(".history-list").append(historyListItem.append(historyListData).append(historyListDelete).append(historyListEdit))
   });
 });
 
@@ -70,6 +73,8 @@ $(document).on("click", ".edit-btn", function () {
 //       // $(".uiContainer--wrapper").html(finishedForm);
 //   });
 // });
+
+
 
 //Save edited history to FB then reload DOM with updated history data
 $(document).on("click", ".save_edit_btn", function() {
@@ -101,23 +106,8 @@ $(document).on("click", ".delete-btn", function () {
 //   loadHistoryToView();
 // });
 
-// Remove history then reload the DOM w/out new history
-$(document).on("click", ".delete-btn", function () {
-  console.log("clicked delete history", $(this).data("delete-id"));
-  let historyID = $(this).data("delete-id");
-  db.deleteHistory(historyID)
-  .then(() => {
-    loadHistoryToView();
-  });
-});
 
-//make the view button work.
-//not needed when user logs in since that will
-//handle showing songs
-// $("#view-historys").click(function() {
-//   $(".uiContainer--wrapper").html("");
-//   loadHistoryToView();
-// });
+
 
 
 
@@ -138,7 +128,15 @@ function buildHistoryObj() {
 };
 return historyObj;
 }
-
+// Load the new medication form
+// $("#getStarted").click(function() {
+//   console.log("clicked add history");
+//   var historyForm = templates.historyForm()
+//   .then(function(historyForm) {
+//     console.log("fill this form", historyForm);
+//     $(".symptom-card-text").html(historyForm);
+//   });
+// });
 
 function createUserObj(patient) {
   let userObj = {

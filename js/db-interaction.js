@@ -22,7 +22,7 @@ let currentUser = null;
         .then((symptomsList,history, historyId) => {
         // printSymptom is the variable for the domBuilder
         templates.printListToDom(symptomsList);
-        templates.historyForm(history, historyId);
+       templates.historyForm(history, historyId);
         },
         (reject) => {
         console.log("SOMETHING WENT REALLY WRONG");
@@ -167,30 +167,9 @@ let currentUser = null;
             };
 
 
-            //  let submitHistory = document.getElementById("submitHistory").addEventListener("click", docHistory => {
-        //      var symptomOnset = document.getElementById("form-date").value;
-        //      var med1 = document.getElementById("form-medication1").value;
-        //      var med2 = document.getElementById("form-medication2").value;
-        //      var med3 = document.getElementById("form-medication3").value;
-        //      var med4 = document.getElementById("form-medication4").value;
-        //      var phy1 = document.getElementById("form-physician1").value;
-        //      var phy2 = document.getElementById("form-physician2").value;
-        //      document.getElementById("myHistory1").innerText = "Medication 1:" + med1 +  "Medication 2:" + med1 +  "Medication 3:" + med3;
-        //  });
-        //  docHistory();
+       
 
         
-        ///function to output the symptom selection
-
-        // function printChecked(){
-        //     var symItems = document.getElementsByName("symCheckName");
-        //     console.log("symItems-inter", symItems);
-        //     var selectedSymptoms = "";
-        //     for (var i = 0; i < symItems.length; i++ ){
-        //         if (symItems[i].type == 'checkbox' && symItems[i].checked==true);
-        //          selectedSymptoms += symItems[i].value;
-        //          console.log("selectedSymptoms", selectedSymptoms);
-        //     }
-        // }
+        
 
     
