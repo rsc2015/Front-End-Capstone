@@ -1,4 +1,4 @@
-# SymTrakr-Front-End-Capstone
+# SymTrak-Front-End-Capstone
 
 > An App for the undiagnosed or chronically ill patient.
 
@@ -10,7 +10,7 @@
 
 ## Symtrak - Individual Project - a Single Page Application
 
->  This begun as a [Nashville Software School's](http://nashvillesoftwareschool.com/) frontend capstone project to create a Single Page Application that demonstrates your ability to design for the user, code, test, and deploy working web apps.
+>  This begun as a [Nashville Software School's](http://nashvillesoftwareschool.com/) frontend capstone project to create a Single Page Application that demonstrates the ability to design for the user, code, test, and deploy working web apps.
 
 ### Technical Considerations
 * User authentication using Firebase.
@@ -35,7 +35,7 @@
 ### Installation
 ```console
 git clone https://github.com/rsc2015/SymptomTracker-Front-End-Capstone.git
-cd 
+cd SymptomTracker-Front-End-Capstone
 cd lib
 npm install
 Run grunt
