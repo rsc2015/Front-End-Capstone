@@ -21,21 +21,22 @@ function printListToDom(symptomsList){
       $('#symptomData').append(`<li class="list-group-item symptomsDisplay" name="symName">
       <input class="singlecheckbox" type="checkbox" name="symCheckName" value="${symptomNames[i].name}" id="${symptomNames[i].name}"/>${symptomNames[i].name}</li>`);
   }
-   let historyDisplay =
-      $(`<div class="card">
-          <div class="card-body box-right">
-            <h5 class="card-title symptomsHeading1">My History</h5>
-              <p class="card-text symptomsSubHeading1">If you can determine when your symptoms first began.</p>
-                <div class="symptom-card-text" id="enterHistory">
-                </div>
-             
-          </div>
-        </div>`);
-      $(".box-right1").html(historyDisplay);
+      let historyDisplay =
+        $(`<div class="card">
+            <div class="card-body box-right">
+              <h5 class="card-title symptomsHeading1">My History</h5>
+                <p class="card-text symptomsSubHeading1">If you can determine when your symptoms first began.</p>
+                  <div class="symptom-card-text" id="enterHistory">
+                  </div>
+                  
+            </div>
+          </div>`);
+        $(".box-right1").html(historyDisplay);
       let form =
-        $(`<div class="form-group">
+        $(`<form class="row form-container" id="submit-history" method="get">
+        <div class="form-group">
               <label class="symptomsHeading1"><b>Symptom Onset Date:</b></label><br>
-              <input type="date" class="form-control" id="form-date" placeholder="date" value="><br>
+              <input type="date" class="form-control" id="form-date" placeholder="date" value=""><br>
           </div>
           <div class="form-group">
               <label class="symptomsHeading1"><b>List all current Medications:</label><br>
@@ -48,11 +49,16 @@ function printListToDom(symptomsList){
               <input type="text" class="form-control" id="form-physician1" placeholder="physician #1" value=""><br>
               <input type="text" class="form-control" id="form-physician2" placeholder="physician #2" value=""><br>
           </div>
-          <button type="submit" class="btn btn-primary save_new_btn" id="submitHistory">Submit</button>`);
+          <button type="button" class="btn btn-primary save_new_btn" id="submitHistory">Submit</button>
+          </form>`);
         $(".symptom-card-text").html(form);
 
-        var symSelected = [];
-      
+}
+
+var symSelected = [];
+var printTheSym = "";
+
+      // https://www.youtube.com/watch?v=B1X5oMUxEeI
       
         $(".singlecheckbox").change(function()  {
                console.log("event listener attached");
@@ -63,21 +69,16 @@ function printListToDom(symptomsList){
               console.log("symSelected", symSelected);      
         });
 
-       
+for (var i=0; i < symSelected.length; i++){
+  printTheSym += "<br>"+symSelected[i];
+  console.log("printTheSym", printTheSym);
 }
+ 
+  // return printTheSym;// <-- to be printed to the div
 
-// var symSelected = [];
-// var printTheSym = "";
 
-// function printSymTrakListToDom(){
-// for (var i=0; i < symSelected.length; i++){
-//   printTheSym += "<br>"+symSelected[i];
-//   console.log("printTheSym", printTheSym);
-//   }
-//   return printTheSym;// <-- to be printed to the div
-// }
 
-// document.getElementById('symTrakList').innerHTML = printSymTrakListToDom();
+// document.getElementById("symTrakList").innerHTML = printSymTrakListToDom();
   
 
     function createHistoryFormList(historyList) {
@@ -88,7 +89,7 @@ function printListToDom(symptomsList){
             <div class="card-body" id="myHistory1">
                 <h5 class="card-title symptomsHeading1">Track Your Symptom</h5>
                 <p class="card-text symptomsSubHeading1">Select your intensity for today</p>
-                <ul id="symTrakList"></ul>
+                <p id="symTrakList"></p>
                               
           </div>
           </div>
@@ -124,12 +125,12 @@ function printListToDom(symptomsList){
             
             historyListData.append(
           `<p>Symptom Onset:${currentHistory.date}</p>
-          <li>${currentHistory.med1}</li>
-          <li>${currentHistory.med2}</li>
-          <li>${currentHistory.med3}</li>
-          <li>${currentHistory.phy1}</li>
-          <li>${currentHistory.phy2}</li>`);
-        $(".history-list").append(historyListItem.append(title));
+          <li>${currentHistory.medication1}</li>
+          <li>${currentHistory.medication2}</li>
+          <li>${currentHistory.medication3}</li>
+          <li>${currentHistory.physician1}</li>
+          <li>${currentHistory.physician2}</li>`);
+        // $(".history-list").append(historyListItem.append(title));
         $(".history-list").append(historyListItem.append(historyListData).append(historyListDelete).append(historyListEdit));
         console.log("currentHistory", currentHistory);
       }
@@ -140,39 +141,68 @@ function printListToDom(symptomsList){
 
     function historyForm(history, historyId) {
       return new Promise(function (resolve, reject) {
+
         let historyItem = {
           date: history ? history.date : "",
           medication1 : history ? history.medication1 : "",
-          medication2: history ? history.medication2: "",
-          medication3: history ? history.medication3: "",
-          physician1: history ? history.physician1: "",
-          physician2: history ? history.physician2: "",
-          formTitle: history ? `Edit "${history.title}"` : "Add a new history",
-          btnText: history ? "save changes" : "save history",
+          medication2: history ? history.medication2 : "",
+          medication3: history ? history.medication3 : "",
+          physician1: history ? history.physician1 : "",
+          physician2: history ? history.physician2 : "",
+          // formTitle: history ? `Edit "${history.title}"` : "Add a new history",
+          btnText: history ? "submit" : "save history",
           btnId: history ? "save_edit_btn" : "save_new_btn"
         },
+        
         form =
-        `<div class="form-group">
+        `<form class="row form-container" id="submit-history" method="get">
+        <div class="form-group">
             <label class="symptomsHeading1">Symptom Onset Date:</label><br>
-            <input type="date" class="form-control" id="form--date" placeholder="date" value="${historyItem.date}><br>
+            <input type="date" class="form-control" id="form--date" placeholder="date" value="${historyItem.date}"><br>
         </div>
         <div class="form-group">
-            <label class="symptomsHeading1">List all current Medications:</label><br>
-            <input type="text" class="form-control" id="form-medication1" placeholder="medication #1" value="${historyItem.medication1}"><br>
-            <input type="text" class="form-control" id="form-medication2" placeholder="medication #1" value="${historyItem.medication2}"><br>
-            <input type="text" class="form-control" id="form-medication3" placeholder="medication #1" value="${historyItem.medication3}"><br>
+            <label class="symptomsHeading1">List All Current Medications:</label><br>
+            <input type="text" class="form-control" id="form-medication1" placeholder="medication #1" value="${historyItem.medication1}"></input><br>
+            <input type="text" class="form-control" id="form-medication2" placeholder="medication #2" value="${historyItem.medication2}"></input><br>
+            <input type="text" class="form-control" id="form-medication3" placeholder="medication #3" value="${historyItem.medication3}"></input><br>
             
         </div>
         <div class="form-group">
             <label class="symptomsHeading1">Physician Visited:</label><br>
-            <input type="text" class="form-control" id="form-physician1" placeholder="physician #1" value="${historyItem.physician1}"><br>
-            <input type="text" class="form-control" id="form-physician2" placeholder="physician #2" value="${historyItem.physician2}"><br>
+            <input type="text" class="form-control" id="form-physician1" placeholder="physician #1" value="${historyItem.physician1}"></input><br>
+            <input type="text" class="form-control" id="form-physician2" placeholder="physician #2" value="${historyItem.physician2}"></input><br>
         </div>
-        <button id="${historyId}" class=${historyItem.btnId}>${historyItem.btnText}</button>`;
+        <button id="${historyId}" class="${historyItem.btnId}" id="submitHistory">${historyItem.btnText}</button>
+        </form>`;
+        // $(".symptom-card-text").html(form);
+        resolve(form);
+        console.log("this is the history form", form);
+        // return printListToDom();
+        
+      });
+      
+    }
+    function songForm(song, songId) {
+      return new Promise(function (resolve, reject) {
+        let songItem = {
+          title: song ? song.title : "",
+          artist: song ? song.artist : "",
+          year: song ? song.year : "",
+          album: song ? song.album : "",
+          // formTitle: song ? `Edit "${song.title}"` : "Add a new song",
+          btnText: song ? "save changes" : "save song",
+          btnId: song ? "save_edit_btn" : "save_new_btn"
+        },
+        form =
+          `
+          <input type="text" id="form--title" placeholder="title" value="${songItem.title}"></input>
+          <input type="text" id="form--artist" placeholder="artist" value="${songItem.artist}"></input>
+          <input type="text" id="form--album" placeholder="album" value="${songItem.album}"></input>
+          <input type="text" id="form--year" placeholder="year" value="${songItem.year}"></input>
+          <button id="${songId}" class=${songItem.btnId}>${songItem.btnText}</button>`;
         resolve(form);
       });
     }
-  
 
 module.exports = {
   printListToDom,
