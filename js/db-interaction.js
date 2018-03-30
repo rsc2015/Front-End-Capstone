@@ -19,9 +19,10 @@ let currentUser = null;
         makeFBCall(`${firebase.getFBsettings().databaseURL}/symptoms.json?orderBy="uid"`)
         // `${firebase.getFBsettings().databaseURL}/historys.json?orderBy="uid"&equalTo="${user}"`
         // https://symtrak-34d63.firebaseio.com/symptoms.json?orderBy="uid"&equalTo="${user}"`
-        .then((symptomsList) => {
+        .then((symptomsList,history, historyId) => {
         // printSymptom is the variable for the domBuilder
         templates.printListToDom(symptomsList);
+        templates.historyForm(history, historyId);
         },
         (reject) => {
         console.log("SOMETHING WENT REALLY WRONG");
@@ -124,22 +125,28 @@ let currentUser = null;
         }
         
         function getHistory(historyId) {
-            console.log("here is the problem");
+            console.log("historyId", historyId);
+          
             return $.ajax({
                 url: `${firebase.getFBsettings().databaseURL}/histories/${historyId}.json`
             }).done((historyData) => {
+                console.log("historyData", historyData);
                 return historyData;
+                
             }).fail((error) => {
                 return error;
             });
         }
-        
+
+       
         function editHistory(historyFormObj, historyId) {
+            console.log("historyFormObj", historyFormObj);
             return $.ajax({
                 url: `${firebase.getFBsettings().databaseURL}/histories/${historyId}.json`,
                 type: 'PUT',
                 data: JSON.stringify(historyFormObj)
             }).done((data) => {
+                console.log("data",data);
                 return data;
             });
         }
