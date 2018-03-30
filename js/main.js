@@ -45,16 +45,31 @@ $(document).on("click", ".save_new_btn", function() {
 
 // go get the history from database and then populate the form for editing.
 $(document).on("click", ".edit-btn", function () {
-  console.log("click edit history");
   let historyID = $(this).data("edit-id");
+  console.log("historyID", historyID);
   db.getHistory(historyID)
   .then((history) => {
+    console.log("edit this history", history);
     return templates.historyForm(history, historyID);
-  })
-  .then((finishedForm) => {
-    $(".uiContainer--wrapper").html(finishedForm);
+  }).then((finishedForm,historyDisplay,symptomListRender) => {
+    console.log("finishedForm", finishedForm);
+    $(".symptom-card-text").html(finishedForm);
+    $(".box-right1").html(historyDisplay);
+    $(".card1").html(symptomListRender);  
   });
 });
+
+// $(document).on("click", ".edit-btn", function () {
+//   let songID = $(this).data("edit-id");
+//   db.getSong(songID)
+//   .then((song) => {
+//     console.log("edit this song", song);
+//     return templates.songForm(song, songID);
+//   }).then((finishedForm) => {
+//     console.log("finishedForm", finishedForm);
+//       // $(".uiContainer--wrapper").html(finishedForm);
+//   });
+// });
 
 //Save edited history to FB then reload DOM with updated history data
 $(document).on("click", ".save_edit_btn", function() {
@@ -105,15 +120,6 @@ $(document).on("click", ".delete-btn", function () {
 // });
 
 
-//***************************************************************************** */
-// Helper functions for forms stuff. Nothing related to Firebase
-// Build a history obj from form data.
-
-// Helper functions for forms stuff. Nothing related to Firebase
-// Build a song obj from form data.
-// put into own module
-
-
 
 //***************************************************************************** */
 
@@ -123,11 +129,11 @@ $(document).on("click", ".delete-btn", function () {
 function buildHistoryObj() {
   let historyObj = {
   date: $("#form-date").val(),
-  med1: $("#form-medication1").val(),
-  med2: $("#form-medication2").val(),
-  med3: $("#form-medication3").val(),
-  phy1: $("#form-physician2").val(),
-  phy2: $("#form-physician2").val(),
+  medication1: $("#form-medication1").val(),
+  medication2: $("#form-medication2").val(),
+  medication3: $("#form-medication3").val(),
+  physician1: $("#form-physician1").val(),
+  physician2: $("#form-physician2").val(),
   uid: user.getUser() // include uid to the object only if a user is logged in.
 };
 return historyObj;
@@ -146,7 +152,6 @@ var userID = "";
 
 
 // let myFirebase = firebase.database().ref();
-
 // Reference to the recommendations object in your Firebase database
 let histories = firebase.database().ref("histories");
 // var histories = myFirebase.child("histories");
