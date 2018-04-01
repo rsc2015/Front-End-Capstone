@@ -115,12 +115,14 @@ label.symptomsHeading1{
 }
 
 .history-list{
-    padding-left:25px;
+    padding-left:5px;
+    margin-top:10px;
    
 }
 
-.history-list > h6{
-    padding-top:5px
+.history-list > p{
+    margin-bottom:0.25rem;
+    margin-top:0.45rem;
 }
 
 .history-list > li{
@@ -129,7 +131,7 @@ label.symptomsHeading1{
 
 
 .symTrakList{
-    height:250px;
+    height:200px;
 }
 
 .editHistoryForm{
@@ -146,3 +148,27 @@ label.symptomsHeading1{
     // display: flex;
     // align-items: center;
  }
+
+ .symTrakList > ul{
+     line-height: 250%;
+    //  margin-left:13px;
+ }
+
+ .symTrakList > h6{
+    margin-left:18px;
+}
+
+#myHistory3{
+    height:310px;
+    padding: 20px;
+}
+
+.list-btn{
+    float:right;
+    margin-right: 30px;
+    
+}
+
+//  .delete-info{
+//      margin-right: 30px;
+// }

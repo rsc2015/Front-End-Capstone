@@ -76,14 +76,27 @@ function symptomListChecked(){
 
 
       //function to render the value of the checkedboxes
-      var printTheSym; 
       function symptomListOutput(){
+        var printTheSym  = "<h6>Select Intensity</h6>";
+       printTheSym += "<ul> "; 
         for (var j=0; j < symSelected.length; j++){
-            printTheSym += "<br>" + symSelected[j];
-            console.log("printTheSym", printTheSym);
+            // printTheSym += "<br>" + symSelected[j];
+      printTheSym += " <li>" + symSelected[j] + "</li>"; 
+      //       console.log("printTheSym", printTheSym);
           } 
+          printTheSym += "</ul>";
           return printTheSym;
         }
+
+
+        function mySymTrakRange() {
+          symptomListOutput();
+          var symLi = document.getElementsByTagName("LI");
+          var att = document.createAttribute("class");
+          att.value = "symclass";
+          symLi.setAttributeNode(att);
+      }
+
 
 
 
@@ -92,7 +105,7 @@ function symptomListChecked(){
       $(`<div class="row viewSymptomList  viewLiveChart">
         <div class="col-sm-5  viewSymptomList">
           <div class="card symptom-list">
-            <div class="card-body" id="myHistory1">
+            <div class="card-body" id="myHistory2">
                 <h5 class="card-title symptomsHeading1">Track Your Symptom</h5>
                 <p class="card-text symptomsSubHeading1">Select your intensity for today</p>
                 <div class="symTrakList">
@@ -106,7 +119,7 @@ function symptomListChecked(){
         </div> 
         <div class="col-sm-7">
            <div class="card symptom-card">
-               <div class="card-body chartDisplay" id="myHistory1">
+               <div class="card-body chartDisplay" id="myHistory4">
                                   
                </div>
            </div>
@@ -116,7 +129,7 @@ function symptomListChecked(){
       $(".symTrakList").html(symptomListOutput);
       
       let medicationList =
-      $(`<div class="card-body" id="myHistory1">
+      $(`<div class="card-body" id="myHistory3">
         <h5 class="card-title symptomsHeading1">Your Current Medication Info:</h5>
       
         <div class="history-list">
@@ -127,19 +140,21 @@ function symptomListChecked(){
         let currentHistory = historyList[history],
             historyListItem = $("<div>", {class: "history-list__item"}),
             // title = $("<span/>", {class: "history-title"}).text(currentHistory.title),
-            historyListData = $("<ul/>", {class: "history-list__item--data"}),
-            historyListEdit = $("<a>", {"data-edit-id": history, class: "edit-btn waves-effect waves-light btn", text: "edit" }),
-            historyListDelete = $("<a>", {"data-delete-id": history, class: "delete-btn waves-effect waves-light btn", text: "delete" });
+            historyListData = $("<div>", {class: "history-list__item--data"}),
+            historyListEdit = $("<a>", {"data-edit-id": history, class: "edit-btn list-btn edit-info", text: "edit" }),
+            historyListDelete = $("<a>", {"data-delete-id": history, class: "delete-btn list-btn delete-info", text: "delete" });
             
             historyListData.html(
-          `<p>Symptom Onset:${currentHistory.date}</p>
+          `<p>Symptom Onset:&nbsp;${currentHistory.date}</p>
+          <div class="medList"><h6>Medication List:</h6><ul>
           <li>${currentHistory.medication1}</li>
           <li>${currentHistory.medication2}</li>
-          <li>${currentHistory.medication3}</li>
+          <li>${currentHistory.medication3}</li></ul><div>
+          <div class="phyList"><h6>Physician visited:</h6><ul>
           <li>${currentHistory.physician1}</li>
-          <li>${currentHistory.physician2}</li>`);
+          <li>${currentHistory.physician2}</li></ul><div>`);
         // $(".history-list").append(historyListItem.append(title));
-        $(".history-list").html(historyListItem.append(historyListData).append(historyListDelete).append(historyListEdit));
+        $(".history-list").html(historyListItem.append(historyListData).append(historyListEdit).append(historyListDelete));
         console.log("currentHistory", currentHistory);
       }
     }
