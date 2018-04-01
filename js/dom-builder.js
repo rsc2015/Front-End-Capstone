@@ -21,6 +21,8 @@ function printListToDom(symptomsList){
       $('#symptomData').append(`<li class="list-group-item symptomsDisplay" name="symName">
       <input class="singlecheckbox" type="checkbox" name="symCheckName" value="${symptomNames[i].name}" id="${symptomNames[i].name}"/>${symptomNames[i].name}</li>`);
   }
+//   var checkedValue = $('.singlecheckbox:checked').val();
+// console.log("checkedValue", checkedValue);
       let historyDisplay =
         $(`<div class="card">
             <div class="card-body box-right">
@@ -53,34 +55,37 @@ function printListToDom(symptomsList){
           <button type="button" class="btn btn-primary save_new_btn" id="submitHistory">Submit</button>
           </form>`);
         $(".symptom-card-text").html(form);
+        
+        symptomListChecked();
+        symptomListOutput();
 
 }
 
-// var symSelected = [];
-// var printTheSym = "";
-
-//       // https://www.youtube.com/watch?v=B1X5oMUxEeI
-      
-//         $(".singlecheckbox").change(function()  {
-//                console.log("event listener attached");
-//                console.log("checked this", this);
-//               var thisChecked = $(this).val();
-//               symSelected.push(thisChecked);
-//               console.log("thisChecked", thisChecked );
-//               console.log("symSelected", symSelected);      
-//         });
-
-// for (var i=0; i < symSelected.length; i++){
-//   printTheSym += "<br>"+symSelected[i];
-//   console.log("printTheSym", printTheSym);
-// }
- 
-  // return printTheSym;// <-- to be printed to the div
+//function to select the value of the checkedboxes
+var symSelected = [ ];
+function symptomListChecked(){
+        $(".singlecheckbox").one("click", function()  {
+               console.log("event listener attached");
+               console.log("checked this", this);
+              var thisChecked = $(this).val();
+              symSelected.push(thisChecked);
+              // console.log("thisChecked", thisChecked );
+               console.log("symSelected", symSelected);      
+        });
+      }
 
 
+      //function to render the value of the checkedboxes
+      var printTheSym; 
+      function symptomListOutput(){
+        for (var j=0; j < symSelected.length; j++){
+            printTheSym += "<br>" + symSelected[j];
+            console.log("printTheSym", printTheSym);
+          } 
+          return printTheSym;
+        }
 
-// document.getElementById("symTrakList").innerHTML = printSymTrakListToDom();
-  
+
 
     function createHistoryFormList(historyList) {
       let viewSymTrakOnDom = 
@@ -90,8 +95,9 @@ function printListToDom(symptomsList){
             <div class="card-body" id="myHistory1">
                 <h5 class="card-title symptomsHeading1">Track Your Symptom</h5>
                 <p class="card-text symptomsSubHeading1">Select your intensity for today</p>
-                <p id="symTrakList"></p>
-                              
+                <div class="symTrakList">
+                
+               </div>               
           </div>
           </div>
           <div class="card symptom-card medical-info">
@@ -107,24 +113,25 @@ function printListToDom(symptomsList){
            </div>
          </div>`);
       $(".track-symptom1").html(viewSymTrakOnDom);
+      $(".symTrakList").html(symptomListOutput);
       
       let medicationList =
       $(`<div class="card-body" id="myHistory1">
         <h5 class="card-title symptomsHeading1">Your Current Medication Info:</h5>
       
-        <ul class="history-list">
-        </ul>        
+        <div class="history-list">
+        </div>        
         </div>`);
       $(".medical-info").html(medicationList);
      for (let history in historyList ) {
         let currentHistory = historyList[history],
-            historyListItem = $("<li>", {class: "history-list__item"}),
-            title = $("<span/>", {class: "history-title"}).text(currentHistory.title),
+            historyListItem = $("<div>", {class: "history-list__item"}),
+            // title = $("<span/>", {class: "history-title"}).text(currentHistory.title),
             historyListData = $("<ul/>", {class: "history-list__item--data"}),
             historyListEdit = $("<a>", {"data-edit-id": history, class: "edit-btn waves-effect waves-light btn", text: "edit" }),
             historyListDelete = $("<a>", {"data-delete-id": history, class: "delete-btn waves-effect waves-light btn", text: "delete" });
             
-            historyListData.append(
+            historyListData.html(
           `<p>Symptom Onset:${currentHistory.date}</p>
           <li>${currentHistory.medication1}</li>
           <li>${currentHistory.medication2}</li>
@@ -132,7 +139,7 @@ function printListToDom(symptomsList){
           <li>${currentHistory.physician1}</li>
           <li>${currentHistory.physician2}</li>`);
         // $(".history-list").append(historyListItem.append(title));
-        $(".history-list").append(historyListItem.append(historyListData).append(historyListDelete).append(historyListEdit));
+        $(".history-list").html(historyListItem.append(historyListData).append(historyListDelete).append(historyListEdit));
         console.log("currentHistory", currentHistory);
       }
     }
@@ -177,7 +184,7 @@ function printListToDom(symptomsList){
         </form>`;
         // $(".symptom-card-text").html(form);
         resolve(form);
-        console.log("this is the history form", form);
+        // console.log("this is the history form", form);
         // return printListToDom();
         
       });
