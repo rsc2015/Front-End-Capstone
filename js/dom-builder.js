@@ -76,14 +76,27 @@ function symptomListChecked(){
 
 
       //function to render the value of the checkedboxes
-      var printTheSym; 
       function symptomListOutput(){
+        var printTheSym  = "<h6>Select Intensity</h6>";
+       printTheSym += "<ul> "; 
         for (var j=0; j < symSelected.length; j++){
-            printTheSym += "<br>" + symSelected[j];
-            console.log("printTheSym", printTheSym);
+            // printTheSym += "<br>" + symSelected[j];
+      printTheSym += " <li>" + symSelected[j] + "</li>"; 
+      //       console.log("printTheSym", printTheSym);
           } 
+          printTheSym += "</ul>";
           return printTheSym;
         }
+
+
+        function mySymTrakRange() {
+          symptomListOutput();
+          var symLi = document.getElementsByTagName("LI");
+          var att = document.createAttribute("class");
+          att.value = "symclass";
+          symLi.setAttributeNode(att);
+      }
+
 
 
 
