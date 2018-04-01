@@ -115,7 +115,8 @@ label.symptomsHeading1{
 }
 
 .history-list{
-    padding-left:25px
+    padding-left:25px;
+   
 }
 
 .history-list > h6{
@@ -126,9 +127,22 @@ label.symptomsHeading1{
     padding-top:2px
 }
 
-// #myHistory1{
 
-//     position: absolute; 
-//     bottom: 0px;
+.symTrakList{
+    height:250px;
+}
 
-// }
+.editHistoryForm{
+    /*padding-top :50px;*/
+    margin-top:40px;
+    height: 680px;
+    background-color: white;
+    border: .5px solid #5A9693;
+    box-shadow: 5px 5px #d6d2d2;
+    // margin-left: 20px;
+    // margin-right: 20px;
+    
+    // justify-content: space-around;
+    // display: flex;
+    // align-items: center;
+ }
