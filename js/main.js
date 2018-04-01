@@ -40,6 +40,7 @@ $(document).on("click", ".save_new_btn", function() {
   db.addHistory(historyObj)
   .then((historyID) => {
     loadHistoryToView();
+    
   });
 });
 
@@ -54,25 +55,11 @@ $(document).on("click", ".edit-btn", function () {
     
   }).then((finishedForm) => {
     console.log("finishedForm", finishedForm);
-    $(".content-1").html(finishedForm);
-    // $(".box-right1").html(historyDisplay);
-    // $(".card1").html(symptomListRender);  
-
-    // $(".history-list").append(historyListItem.append(historyListData).append(historyListDelete).append(historyListEdit))
+    $(".editHistoryForm").html(finishedForm);
+    // $(".box-right1").html(historyDisplay); 
+    //$(".card1").html(symptomListRender);  
   });
 });
-
-// $(document).on("click", ".edit-btn", function () {
-//   let songID = $(this).data("edit-id");
-//   db.getSong(songID)
-//   .then((song) => {
-//     console.log("edit this song", song);
-//     return templates.songForm(song, songID);
-//   }).then((finishedForm) => {
-//     console.log("finishedForm", finishedForm);
-//       // $(".uiContainer--wrapper").html(finishedForm);
-//   });
-// });
 
 
 
@@ -88,6 +75,7 @@ $(document).on("click", ".save_edit_btn", function() {
 });
 
 
+
 // Remove history then reload the DOM w/out new history
 $(document).on("click", ".delete-btn", function () {
   console.log("clicked delete history", $(this).data("delete-id"));
@@ -97,18 +85,6 @@ $(document).on("click", ".delete-btn", function () {
     loadHistoryToView();
   });
 });
-
-//make the view button work.
-//not needed when user logs in since that will
-//handle showing historys
-// $("#view-historys").click(function() {
-//   $(".uiContainer--wrapper").html("");
-//   loadHistoryToView();
-// });
-
-
-
-
 
 
 //***************************************************************************** */
@@ -181,32 +157,11 @@ function sendToFirebase() {
 
 $("#log-out").click(function(){
   user.googleLogOut();
-  // $("#login").removeClass("is-hidden");
-  // $("#log-out").addClass("is-hidden");
       $("#log-out").hide();
       $("#login").show();
 });
 
 
-// $("#auth-btn").click(function(){
-//     console.log("clicked on Signin");
-    
-//     login.logInGoogle()
-//     .then((result) => {
-//       console.log("result from login", result.user.uid);
-//       $("#auth-btn").hide();
-//       $("#logout").show();
-//       login.setUser(result.user.uid);
-//     });
-//   });
-  
-//   $("#logout").click(function(){
-//     console.log("logout clicked");
-//     $("#logout").hide();
-//     $("#auth-btn").show();
-//     login.logOut();
-  
-//   });
 
  
 
