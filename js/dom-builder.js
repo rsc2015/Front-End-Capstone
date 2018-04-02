@@ -74,17 +74,8 @@ function symptomListChecked(){
 
 
       //function to render the value of the checkedboxes
-      
-
-      //  for (var i=0; i < 12; i++){
-      //   let symptomNames = symptomsList;
-      //     console.log("Symptom Name:", symptomNames[i].name);
-      //     $('#symptomData').append(`<li class="list-group-item symptomsDisplay" name="symName">
-      //     <input class="singlecheckbox" type="checkbox" name="symCheckName" value="${symptomNames[i].name}" id="${symptomNames[i].name}"/>${symptomNames[i].name}</li>`);
-      //     $(".symTrakList")
 
       function symptomListOutput(){
-      //   var printTheSym  = "<h6>Select Intensity</h6>";
     var printTheSym ; 
             for (var j=0; j < symSelected.length; j++){
             // printTheSym += "<br>" + symSelected[j];
@@ -96,7 +87,7 @@ function symptomListChecked(){
           return printTheSym;
         }
 
-
+//function to OUTPUT  the value of the slider
         function sliderVal()
 {
 $('.slider').on('input change', function(){
@@ -107,28 +98,7 @@ $('.slider').on('input change', function(){
           $(this).html(value);
         });  
 }
-        // function symptomListOutput(){
-        //   var printTheSym  = "<h6>Select Intensity</h6>";
-        //  printTheSym += "<ul> "; 
-      //   for (var j=0; j < symSelected.length; j++){
-      //       // printTheSym += "<br>" + symSelected[j];
-      // printTheSym += " <li>" + symSelected[j] + "</li>"; 
-      // //       console.log("printTheSym", printTheSym);
-      //     } 
-      //     printTheSym += "</ul>";
-      //     return printTheSym;
-      //   }
-
-
-      //   function mySymTrakRange() {
-      //     symptomListOutput();
-      //     var symLi = document.getElementsByTagName("LI");
-      //     var att = document.createAttribute("class");
-      //     att.value = "symclass";
-      //     symLi.setAttributeNode(att);
-      // }
-
-
+        
 
 
     function createHistoryFormList(historyList) {
@@ -244,5 +214,4 @@ module.exports = {
   printListToDom,
   createHistoryFormList,
   historyForm,
-  // printSymTrakListToDom
   };
