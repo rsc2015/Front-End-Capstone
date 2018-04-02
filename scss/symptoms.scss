@@ -31,7 +31,7 @@ margin-top: 15px;
 .symptomsHeading1{
     margin-bottom:0px;
     margin-top: 2px;
-    margin-left: 20px;
+    margin-left: 15px;
 }
 .symptomsSubHeading1{
     font-size: 13px;
@@ -114,6 +114,11 @@ label.symptomsHeading1{
     
 }
 
+
+#myHistory2{
+  padding-top: 10px;
+  padding-left:10px;
+}
 .history-list{
     padding-left:5px;
     margin-top:10px;
@@ -132,6 +137,10 @@ label.symptomsHeading1{
 
 .symTrakList{
     height:200px;
+<<<<<<< HEAD
+    margin-left:0px;
+=======
+>>>>>>> master
 }
 
 .editHistoryForm{
@@ -149,6 +158,70 @@ label.symptomsHeading1{
     // align-items: center;
  }
 
+<<<<<<< HEAD
+ ///symptomIntensity display list
+
+ li.symptomsInt {
+     padding-left: 5px;
+margin-left:0;
+font-size: 16px;
+ }
+//  .symTrakList > ul{
+//      line-height: 250%;
+    
+//  }
+ul.symTrakList{
+    padding-left:5px;
+    margin-bottom:5px;
+}
+ .symTrakList > h6{
+    margin-left:18px;
+}
+// .symTrakList{
+//     width:100%;
+// }
+input.slider{
+   padding-right: 2px;
+}
+
+output.slider_label{
+    margin-left: 18px;
+    font-size:16px;
+}
+
+.intSlider{
+ float:  right;
+//  display: inline;
+}
+
+
+///medication-physician info
+#myHistory3{
+    height:310px;
+   padding-bottom: 15px;
+}
+#myHistory3 > ul{
+    padding-bottom:5px;
+}
+.list-btn{
+    float:right;
+    margin-right: 25px;
+    //margin-bottom:25px;
+    
+}
+
+
+//  .delete-info{
+//      margin-right: 30px;
+// }
+.levels{
+    font-size:12px;
+    margin-bottom:2px;
+    padding:0px;
+    text-align: center;
+}
+
+=======
  .symTrakList > ul{
      line-height: 250%;
     //  margin-left:13px;
@@ -172,3 +245,4 @@ label.symptomsHeading1{
 //  .delete-info{
 //      margin-right: 30px;
 // }
+>>>>>>> master

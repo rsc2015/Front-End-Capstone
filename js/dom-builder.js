@@ -21,8 +21,6 @@ function printListToDom(symptomsList){
       $('#symptomData').append(`<li class="list-group-item symptomsDisplay" name="symName">
       <input class="singlecheckbox" type="checkbox" name="symCheckName" value="${symptomNames[i].name}" id="${symptomNames[i].name}"/>${symptomNames[i].name}</li>`);
   }
-//   var checkedValue = $('.singlecheckbox:checked').val();
-// console.log("checkedValue", checkedValue);
       let historyDisplay =
         $(`<div class="card">
             <div class="card-body box-right">
@@ -76,18 +74,31 @@ function symptomListChecked(){
 
 
       //function to render the value of the checkedboxes
+
       function symptomListOutput(){
-        var printTheSym  = "<h6>Select Intensity</h6>";
-       printTheSym += "<ul> "; 
-        for (var j=0; j < symSelected.length; j++){
+    var printTheSym ; 
+            for (var j=0; j < symSelected.length; j++){
             // printTheSym += "<br>" + symSelected[j];
-      printTheSym += " <li>" + symSelected[j] + "</li>"; 
+            $(".symTrakList").append(`<li class="list-group-item symptomsInt" name="symSelect">${symSelected[j]} 
+            <span class="intSlider"><input type="range" min="0" max="4" step="1" name="intensity" class="slider" id="${symSelected[j]}"/><output  class="slider_label"></output><span></li>`);
       //       console.log("printTheSym", printTheSym);
           } 
-          printTheSym += "</ul>";
+        
           return printTheSym;
         }
 
+//function to OUTPUT  the value of the slider
+        function sliderVal()
+{
+$('.slider').on('input change', function(){
+          $(this).next($('.slider_label')).html(this.value);
+        });
+      $('.slider_label').each(function(){
+          var value = $(this).prev().attr('value');
+          $(this).html(value);
+        });  
+}
+        
 
         function mySymTrakRange() {
           symptomListOutput();
@@ -107,10 +118,11 @@ function symptomListChecked(){
           <div class="card symptom-list">
             <div class="card-body" id="myHistory2">
                 <h5 class="card-title symptomsHeading1">Track Your Symptom</h5>
-                <p class="card-text symptomsSubHeading1">Select your intensity for today</p>
-                <div class="symTrakList">
+                <p class="card-text symptomsSubHeading1">Select your intensity for today<span class="oi oi-question-mark"></span></p>
+
+               <ul class="symTrakList"></ul>
                 
-               </div>               
+           <p class="levels">0=none:&nbsp;1=mild:&nbsp;2=moderate:&nbsp;3=difficult:&nbsp;4=severe</p>                 
           </div>
           </div>
           <div class="card symptom-card medical-info">
@@ -126,8 +138,9 @@ function symptomListChecked(){
            </div>
          </div>`);
       $(".track-symptom1").html(viewSymTrakOnDom);
-      $(".symTrakList").html(symptomListOutput);
-      
+      // $(".symTrakList").html(symptomListOutput);
+      symptomListOutput();
+      sliderVal();
       let medicationList =
       $(`<div class="card-body" id="myHistory3">
         <h5 class="card-title symptomsHeading1">Your Current Medication Info:</h5>
@@ -141,18 +154,21 @@ function symptomListChecked(){
             historyListItem = $("<div>", {class: "history-list__item"}),
             // title = $("<span/>", {class: "history-title"}).text(currentHistory.title),
             historyListData = $("<div>", {class: "history-list__item--data"}),
-            historyListEdit = $("<a>", {"data-edit-id": history, class: "edit-btn list-btn edit-info", text: "edit" }),
-            historyListDelete = $("<a>", {"data-delete-id": history, class: "delete-btn list-btn delete-info", text: "delete" });
+
+            historyListEdit = $("<button>", {"data-edit-id": history, class: "edit-btn list-btn edit-info btn btn-secondary", text: "edit" }),
+            historyListDelete = $("<button>", {"data-delete-id": history, class: "delete-btn list-btn delete-info btn btn-link", text: "delete" });
+
             
             historyListData.html(
           `<p>Symptom Onset:&nbsp;${currentHistory.date}</p>
           <div class="medList"><h6>Medication List:</h6><ul>
           <li>${currentHistory.medication1}</li>
           <li>${currentHistory.medication2}</li>
-          <li>${currentHistory.medication3}</li></ul><div>
+          <li>${currentHistory.medication3}</li></ul></div>
           <div class="phyList"><h6>Physician visited:</h6><ul>
           <li>${currentHistory.physician1}</li>
-          <li>${currentHistory.physician2}</li></ul><div>`);
+          <li>${currentHistory.physician2}</li></ul></div>`);
+
         // $(".history-list").append(historyListItem.append(title));
         $(".history-list").html(historyListItem.append(historyListData).append(historyListEdit).append(historyListDelete));
         console.log("currentHistory", currentHistory);
@@ -211,5 +227,4 @@ module.exports = {
   printListToDom,
   createHistoryFormList,
   historyForm,
-  // printSymTrakListToDom
   };
