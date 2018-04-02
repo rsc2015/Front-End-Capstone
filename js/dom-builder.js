@@ -35,21 +35,21 @@ function printListToDom(symptomsList){
         $(".box-right1").html(historyDisplay);
       let form =
         $(`<form class="row form-container" id="submit-history" method="get">
-        <div class="form-group">
+          <div class="form-group">
               <label class="symptomsHeading1"><b>Symptom Onset Date:</b></label><br>
               <input type="date" class="form-control" id="form-date" placeholder="date" value=""><br>
           </div>
-          <div class="form-group">
-              <label class="symptomsHeading1"><b>List all current Medications:</label><br>
+          <div class="form-group info-inputs-1">
+              <label class="symptomsHeading1"><b>List all current Medications:</b></label><br>
               <input type="text" class="form-control" id="form-medication1" placeholder="medication #1" value=""><br>
               <input type="text" class="form-control" id="form-medication2" placeholder="medication #2" value=""><br>
               <input type="text" class="form-control" id="form-medication3" placeholder="medication #3" value=""><br>
-          </div>
-          <div class="form-group">
-              <label class="symptomsHeading1">Physician Visited:</label><br>
+           </div>
+           <div class="form-group info-inputs-2">
+              <label class="symptomsHeading1"><b>Physician Visited:</b></label><br>
               <input type="text" class="form-control" id="form-physician1" placeholder="physician #1" value=""><br>
               <input type="text" class="form-control" id="form-physician2" placeholder="physician #2" value=""><br>
-          </div>
+           </div>
           <button type="button" class="btn btn-primary save_new_btn" id="submitHistory">Submit</button>
           </form>`);
         $(".symptom-card-text").html(form);
@@ -118,7 +118,7 @@ $('.slider').on('input change', function(){
           <div class="card symptom-list">
             <div class="card-body" id="myHistory2">
                 <h5 class="card-title symptomsHeading1">Track Your Symptom</h5>
-                <p class="card-text symptomsSubHeading1">Select your intensity for today<span class="oi oi-question-mark"></span></p>
+                <p class="card-text symptomsSubHeading1">Use the slider to save your intensity for today<span id="today-date"></span></p>
 
                <ul class="symTrakList"></ul>
                 
@@ -132,6 +132,7 @@ $('.slider').on('input change', function(){
         <div class="col-sm-7">
            <div class="card symptom-card">
                <div class="card-body chartDisplay" id="myHistory4">
+               <img src="images/chart-image.png" alt="Chart-image" style="width:600px;height:550px;">
                                   
                </div>
            </div>
@@ -141,6 +142,7 @@ $('.slider').on('input change', function(){
       // $(".symTrakList").html(symptomListOutput);
       symptomListOutput();
       sliderVal();
+      
       let medicationList =
       $(`<div class="card-body" id="myHistory3">
         <h5 class="card-title symptomsHeading1">Your Current Medication Info:</h5>
@@ -192,32 +194,43 @@ $('.slider').on('input change', function(){
           btnText: history ? "save changes" : "save history",
           btnId: history ? "save_edit_btn" : "save_new_btn"
         },
+
+        
         
         form =
-        `<form class="row form-container" id="submit-history" method="get">
-        <div class="form-group">
+        ` <div class="col-sm-6 box-right1 box-chart">
+        <div class="card">
+        <div class="card-body box-right">
+          <h5 class="card-title symptomsHeading1">&nbsp;My Medical Info</h5>
+            <p class="card-text symptomsSubHeading1">Update The Form</p>
+              <div class="symptom-card-text" id="enterHistory">
+            <form class="row form-container" id="submit-history" method="get">
+            <div class="form-group">
             <label class="symptomsHeading1">Symptom Onset Date:</label><br>
-            <input type="date" class="form-control" id="form-date" placeholder="date" value="${historyItem.date}"><br>
-        </div>
-        <div class="form-group">
-            <label class="symptomsHeading1">List All Current Medications:</label><br>
-            <input type="text" class="form-control" id="form-medication1" placeholder="medication #1" value="${historyItem.medication1}"></input><br>
-            <input type="text" class="form-control" id="form-medication2" placeholder="medication #2" value="${historyItem.medication2}"></input><br>
-            <input type="text" class="form-control" id="form-medication3" placeholder="medication #3" value="${historyItem.medication3}"></input><br>
-            
-        </div>
-        <div class="form-group">
-            <label class="symptomsHeading1">Physician Visited:</label><br>
-            <input type="text" class="form-control" id="form-physician1" placeholder="physician #1" value="${historyItem.physician1}"></input><br>
-            <input type="text" class="form-control" id="form-physician2" placeholder="physician #2" value="${historyItem.physician2}"></input><br>
-        </div>
-        <button id="${historyId}" class="${historyItem.btnId}">${historyItem.btnText}</button>
-        </form>`;
+                <input type="date" class="form-control" id="form-date" placeholder="date" value="${historyItem.date}"><br>
+                </div>
+                <div class="form-group info-inputs-1">    
+                <label class="symptomsHeading1"><b>List All Current Medications:</b></label><br>
+                <input type="text" class="form-control" id="form-medication1" placeholder="medication #1" value="${historyItem.medication1}"></input><br>
+                <input type="text" class="form-control" id="form-medication2" placeholder="medication #2" value="${historyItem.medication2}"></input><br>
+                <input type="text" class="form-control" id="form-medication3" placeholder="medication #3" value="${historyItem.medication3}"></input><br>
+                </div>
+                <div class="form-group info-inputs-2" >
+            <label class="symptomsHeading1"><b>Physician Visited:</b></label><br>
+                <input type="text" class="form-control" id="form-physician1" placeholder="physician #1" value="${historyItem.physician1}"></input><br>
+                <input type="text" class="form-control" id="form-physician2" placeholder="physician #2" value="${historyItem.physician2}"></input><br>
+                <button id="${historyId}" class="${historyItem.btnId} med-info-editBtn btn btn-secondary">${historyItem.btnText}</button>
+            </div>
+            </form> 
+            </div>
+            </div>
+            </div>
+        </div> `;
         // $(".symptom-card-text").html(form);
         resolve(form);
         // console.log("this is the history form", form);
         // return printListToDom();
-        
+        // printListToDom();
       });
       
     }
