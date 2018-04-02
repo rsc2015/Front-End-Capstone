@@ -83,7 +83,7 @@ function symptomListChecked(){
             <span class="intSlider"><input type="range" min="0" max="4" step="1" name="intensity" class="slider" id="${symSelected[j]}"/><output  class="slider_label"></output><span></li>`);
       //       console.log("printTheSym", printTheSym);
           } 
-          // printTheSym += "</ul>";
+        
           return printTheSym;
         }
 
@@ -99,6 +99,16 @@ $('.slider').on('input change', function(){
         });  
 }
         
+
+        function mySymTrakRange() {
+          symptomListOutput();
+          var symLi = document.getElementsByTagName("LI");
+          var att = document.createAttribute("class");
+          att.value = "symclass";
+          symLi.setAttributeNode(att);
+      }
+
+
 
 
     function createHistoryFormList(historyList) {
@@ -144,8 +154,10 @@ $('.slider').on('input change', function(){
             historyListItem = $("<div>", {class: "history-list__item"}),
             // title = $("<span/>", {class: "history-title"}).text(currentHistory.title),
             historyListData = $("<div>", {class: "history-list__item--data"}),
+
             historyListEdit = $("<button>", {"data-edit-id": history, class: "edit-btn list-btn edit-info btn btn-secondary", text: "edit" }),
             historyListDelete = $("<button>", {"data-delete-id": history, class: "delete-btn list-btn delete-info btn btn-link", text: "delete" });
+
             
             historyListData.html(
           `<p>Symptom Onset:&nbsp;${currentHistory.date}</p>
@@ -156,6 +168,7 @@ $('.slider').on('input change', function(){
           <div class="phyList"><h6>Physician visited:</h6><ul>
           <li>${currentHistory.physician1}</li>
           <li>${currentHistory.physician2}</li></ul></div>`);
+
         // $(".history-list").append(historyListItem.append(title));
         $(".history-list").html(historyListItem.append(historyListData).append(historyListEdit).append(historyListDelete));
         console.log("currentHistory", currentHistory);
