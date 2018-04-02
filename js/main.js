@@ -9,8 +9,8 @@ let user = require("./user");
 let login = require("./user");
 let fbConfig = require('./fb-config');
 let firebase = require("firebase/app");
-// let templates1 = require("./trackSym");
-let templates2 = require("./history");
+
+
 
 function loadHistoryToView() {
   console.log("Need to load some history");
@@ -28,7 +28,6 @@ function loadHistoryToView() {
     // });
     // console.log("history object with id", historyData);
     //now make the list with historyData
-
     templates.createHistoryFormList(historyData);
   });
 }
@@ -40,7 +39,6 @@ $(document).on("click", ".save_new_btn", function() {
   db.addHistory(historyObj)
   .then((historyID) => {
     loadHistoryToView();
-    
   });
 });
 
@@ -52,11 +50,10 @@ $(document).on("click", ".edit-btn", function () {
   .then((history) => {
     console.log("edit this history", history);
     return templates.historyForm(history, historyID);
-    
   }).then((finishedForm) => {
     console.log("finishedForm", finishedForm);
     $(".editHistoryForm").html(finishedForm);
-    // $(".box-right1").html(historyDisplay); 
+    // $(".editHistoryForm").append((".box-right1").html(historyDisplay)).html(finishedForm);
     //$(".card1").html(symptomListRender);  
   });
 });
@@ -71,6 +68,7 @@ $(document).on("click", ".save_edit_btn", function() {
   db.editHistory(historyObj, historyID)
   .then((data) => {
     loadHistoryToView();
+    
   });
 });
 
@@ -104,15 +102,6 @@ function buildHistoryObj() {
 };
 return historyObj;
 }
-// Load the new medication form
-// $("#getStarted").click(function() {
-//   console.log("clicked add history");
-//   var historyForm = templates.historyForm()
-//   .then(function(historyForm) {
-//     console.log("fill this form", historyForm);
-//     $(".symptom-card-text").html(historyForm);
-//   });
-// });
 
 function createUserObj(patient) {
   let userObj = {
