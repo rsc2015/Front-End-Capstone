@@ -121,7 +121,7 @@ $('.slider').on('input change', function(){
                <ul class="symTrakList"></ul>
                 
            <p class="levels">0=none:&nbsp;1=mild:&nbsp;2=moderate:&nbsp;3=difficult:&nbsp;4=severe</p>
-           <button type="button" class="btn btn-primary .save_track_btn">Submit</button>                 
+
           </div>
           </div>
           <div class="card symptom-card medical-info">
@@ -203,7 +203,7 @@ $('.slider').on('input change', function(){
           <h5 class="card-title symptomsHeading1">&nbsp;My Medical Info</h5>
             <p class="card-text symptomsSubHeading1">Update The Form</p>
               <div class="symptom-card-text" id="enterHistory">
-            <form class="row form-container" id="submit-history" method="get">
+            
             <div class="form-group">
             <label class="symptomsHeading1">Symptom Onset Date:</label><br>
                 <input type="date" class="form-control" id="form-date" placeholder="date" value="${historyItem.date}"><br>
@@ -220,7 +220,7 @@ $('.slider').on('input change', function(){
                 <input type="text" class="form-control" id="form-physician2" placeholder="physician #2" value="${historyItem.physician2}"></input><br>
                 <button id="${historyId}" class="${historyItem.btnId} med-info-editBtn btn btn-secondary">${historyItem.btnText}</button>
             </div>
-            </form> 
+            
             </div>
             </div>
             </div>
