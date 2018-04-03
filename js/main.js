@@ -12,6 +12,7 @@ let firebase = require("firebase/app");
 
 
 
+
 function loadHistoryToView() {
   console.log("Need to load some history");
   let currentUser = user.getUser(); //add once we have login
@@ -41,6 +42,7 @@ $(document).on("click", ".save_new_btn", function() {
     loadHistoryToView();
   });
 });
+
 
 // go get the history from database and then populate the form for editing.
 $(document).on("click", ".edit-btn", function () {
@@ -93,6 +95,7 @@ $(document).on("click", ".delete-btn", function () {
 function buildHistoryObj() {
   let historyObj = {
   date: $("#form-date").val(),
+  //symptom1: $("#{symptomNames[i].name}").is(':checked'),
   medication1: $("#form-medication1").val(),
   medication2: $("#form-medication2").val(),
   medication3: $("#form-medication3").val(),
@@ -114,11 +117,42 @@ function createUserObj(patient) {
 var userID = "";
 
 
-// let myFirebase = firebase.database().ref();
-// Reference to the recommendations object in your Firebase database
-let histories = firebase.database().ref("histories");
-// var histories = myFirebase.child("histories");
-console.log("histories", histories);
+var dbRef = firebase.database();
+
+var buildTrackObj = dbRef.ref('tracking');
+// //console.log("trackObj", trackObj);
+
+var trackObj = buildTrackObj.push({
+    id: '',
+    date: '',
+    intensity:'',
+    uid: user.getUser()
+  
+});
+ 
+
+
+
+/////----- Adding tracking to database -----/////
+function addMyTrackFB(trackObj) {
+  console.log("trackObj", trackObj);
+  return $.ajax ({
+      url: `${firebase.getFBsettings().databaseURL}/tracking.json`,
+      type: 'POST',
+      data: JSON.stringify(trackObj),
+      dataType: 'json'
+  }).done((trackId) => {
+    console.log("trackData", trackId);
+      return trackId;
+  }).fail((error) => {
+      return error;
+  });
+}
+
+
+//var userID = "";
+
+
 
 //------- When user clicks login --------//
 $("#login").click(function() {

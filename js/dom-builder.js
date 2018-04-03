@@ -2,6 +2,7 @@
 
 let $ = require('jquery');
 let user = require("./user");
+let firebase = require("./fb-config");
 
 function printListToDom(symptomsList){
   //console.log("symptomsList1", symptomsList);
@@ -19,7 +20,7 @@ function printListToDom(symptomsList){
     let symptomNames = symptomsList;
       console.log("Symptom Name:", symptomNames[i].name);
       $('#symptomData').append(`<li class="list-group-item symptomsDisplay" name="symName">
-      <input class="singlecheckbox" type="checkbox" name="symCheckName" value="${symptomNames[i].name}" id="${symptomNames[i].name}"/>${symptomNames[i].name}</li>`);
+      <input class="singlecheckbox" type="checkbox" name="symCheckName" value="${symptomNames[i].name}" id="${symptomNames[i].id}"/>${symptomNames[i].name}</li>`);
   }
       let historyDisplay =
         $(`<div class="card">
@@ -34,7 +35,7 @@ function printListToDom(symptomsList){
           </div>`);
         $(".box-right1").html(historyDisplay);
       let form =
-        $(`<form class="row form-container" id="submit-history" method="get">
+        $(`
           <div class="form-group">
               <label class="symptomsHeading1"><b>Symptom Onset Date:</b></label><br>
               <input type="date" class="form-control" id="form-date" placeholder="date" value=""><br>
@@ -51,16 +52,20 @@ function printListToDom(symptomsList){
               <input type="text" class="form-control" id="form-physician2" placeholder="physician #2" value=""><br>
            </div>
           <button type="button" class="btn btn-primary save_new_btn" id="submitHistory">Submit</button>
-          </form>`);
+          `);
         $(".symptom-card-text").html(form);
         
         symptomListChecked();
         symptomListOutput();
 
 }
-
+//<form class="row form-container" id="submit-history" method="get">
 //function to select the value of the checkedboxes
 var symSelected = [ ];
+var k;
+var symId = [];
+
+
 function symptomListChecked(){
         $(".singlecheckbox").one("click", function()  {
                console.log("event listener attached");
@@ -68,47 +73,40 @@ function symptomListChecked(){
               var thisChecked = $(this).val();
               symSelected.push(thisChecked);
               // console.log("thisChecked", thisChecked );
-               console.log("symSelected", symSelected);      
-        });
+               console.log("symSelected", symSelected);  
+               var symTrackID = $(this).attr('id');
+               symId.push(symTrackID);
+               console.log("thisSymID", symId);
+        });  
       }
+               
 
-
-      //function to render the value of the checkedboxes
-
-      function symptomListOutput(){
-    var printTheSym ; 
+    //function to render the value of the checkedboxes
+    function symptomListOutput(){
+    var printTheSym ;
+   
             for (var j=0; j < symSelected.length; j++){
             // printTheSym += "<br>" + symSelected[j];
-            $(".symTrakList").append(`<li class="list-group-item symptomsInt" name="symSelect">${symSelected[j]} 
-            <span class="intSlider"><input type="range" min="0" max="4" step="1" name="intensity" class="slider" id="${symSelected[j]}"/><output  class="slider_label"></output><span></li>`);
-      //       console.log("printTheSym", printTheSym);
-          } 
-        
+            $(".symTrakList").append(`<li class="list-group-item symptomsInt" name="symSelect" id="${symId[k]}">${symSelected[j]} 
+            <span class="intSlider"><input type="range" min="0" max="4" step="1" name="intensity" class="slider" id="${symSelected[j]}"/><output class="slider_label" value=""></output></span></li>`);
+            //console.log("printTheSym", printTheSym);
+          }
           return printTheSym;
         }
 
 //function to OUTPUT  the value of the slider
-        function sliderVal()
-{
+        function sliderVal(){
 $('.slider').on('input change', function(){
           $(this).next($('.slider_label')).html(this.value);
         });
       $('.slider_label').each(function(){
           var value = $(this).prev().attr('value');
           $(this).html(value);
+          console.log("intensity value", this.value);
+          
         });  
 }
-        
-
-        function mySymTrakRange() {
-          symptomListOutput();
-          var symLi = document.getElementsByTagName("LI");
-          var att = document.createAttribute("class");
-          att.value = "symclass";
-          symLi.setAttributeNode(att);
-      }
-
-
+      
 
 
     function createHistoryFormList(historyList) {
@@ -122,7 +120,8 @@ $('.slider').on('input change', function(){
 
                <ul class="symTrakList"></ul>
                 
-           <p class="levels">0=none:&nbsp;1=mild:&nbsp;2=moderate:&nbsp;3=difficult:&nbsp;4=severe</p>                 
+           <p class="levels">0=none:&nbsp;1=mild:&nbsp;2=moderate:&nbsp;3=difficult:&nbsp;4=severe</p>
+
           </div>
           </div>
           <div class="card symptom-card medical-info">
@@ -204,7 +203,7 @@ $('.slider').on('input change', function(){
           <h5 class="card-title symptomsHeading1">&nbsp;My Medical Info</h5>
             <p class="card-text symptomsSubHeading1">Update The Form</p>
               <div class="symptom-card-text" id="enterHistory">
-            <form class="row form-container" id="submit-history" method="get">
+            
             <div class="form-group">
             <label class="symptomsHeading1">Symptom Onset Date:</label><br>
                 <input type="date" class="form-control" id="form-date" placeholder="date" value="${historyItem.date}"><br>
@@ -221,7 +220,7 @@ $('.slider').on('input change', function(){
                 <input type="text" class="form-control" id="form-physician2" placeholder="physician #2" value="${historyItem.physician2}"></input><br>
                 <button id="${historyId}" class="${historyItem.btnId} med-info-editBtn btn btn-secondary">${historyItem.btnText}</button>
             </div>
-            </form> 
+            
             </div>
             </div>
             </div>
@@ -235,9 +234,49 @@ $('.slider').on('input change', function(){
       
     }
   
+function getSymptomFB(trackObj) {
+    console.log("What's in getSymptomFB", getSymptomFB);
+    return $.ajax({
+        url: `${firebase.getFBsettings().databaseURL}/tracking.json?orderBy="id"`
+    }).done((symptomInfo) => {
+        console.log("SymptomInfo", symptomInfo );
+        return symptomInfo;
+    }).then((symInfo) => {
+        return symInfo;
+    }).fail((error) => {
+        return error;
+    });
+}
+
+
+let showSingleSymptom = (mySymptoms) => { 
+  console.log("mySymptoms",mySymptoms);
+    return new Promise((resolve, reject) => {
+       return $.ajax({
+        url: `${firebase.getFBsettings().databaseURL}/symptoms/${mySymptoms.id}.json`
+    }).done((getInfo) => {
+        //displaySymptomTracking(getInfo, mySymptoms);
+            resolve (getInfo.responseJSON);
+        }).fail((error) => {
+            return reject(error);
+        }); 
+    });   
+};
+
+
+
+// function favoritesDetailDOM(getuchInfo) {
+//     console.log("What is in getuchInfo", getuchInfo);
+//     let characterPromises = [];
+//     for(let myfav in getuchInfo) {
+//         showSingleCharacter(getuchInfo[myfav]);
+//     }  
+// }
 
 module.exports = {
   printListToDom,
   createHistoryFormList,
   historyForm,
+  getSymptomFB,
+  showSingleSymptom
   };
